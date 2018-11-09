@@ -20,6 +20,8 @@ import java.util.Map;
   "address",
   "tx",
   "text",
+  "walletBalance",
+  "marginBalance",
   "transactTime",
   "timestamp"
 })
@@ -60,6 +62,12 @@ public final class BitmexWalletTransaction {
 
   @JsonProperty("timestamp")
   private String timestamp;
+
+  @JsonProperty("walletBalance")
+  private BigDecimal walletBalance;
+
+  @JsonProperty("marginBalance")
+  private BigDecimal marginBalance;
 
   @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -109,6 +117,14 @@ public final class BitmexWalletTransaction {
 
   public String getTimestamp() {
     return timestamp;
+  }
+
+  public BigDecimal getWalletBalance() {
+    return walletBalance;
+  }
+
+  public BigDecimal getMarginBalance() {
+    return marginBalance;
   }
 
   public Map<String, Object> getAdditionalProperties() {
