@@ -8,6 +8,7 @@ import org.knowm.xchange.okcoin.FuturesContract;
 import org.knowm.xchange.okcoin.OkCoin;
 import org.knowm.xchange.okcoin.OkCoinAdapters;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinDepth;
+import org.knowm.xchange.okcoin.dto.marketdata.OkCoinFutureIndex;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinTickerResponse;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinTrade;
 import si.mazi.rescu.RestProxyFactory;
@@ -73,5 +74,9 @@ public class OkCoinMarketDataServiceRaw extends OkCoinBaseService {
   public List<Object[]> getKlines(CurrencyPair currencyPair, String type) throws IOException {
 
     return okCoin.getKlines(OkCoinAdapters.adaptSymbol(currencyPair), type);
+  }
+
+  public OkCoinFutureIndex getFutureIndex(CurrencyPair currencyPair) throws IOException {
+    return okCoin.getFutureIndex(OkCoinAdapters.adaptSymbol(currencyPair));
   }
 }

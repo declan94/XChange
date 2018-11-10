@@ -15,6 +15,7 @@ import org.knowm.xchange.okcoin.dto.account.OkCoinAccountRecords;
 import org.knowm.xchange.okcoin.dto.account.OkCoinFuturesUserInfoCross;
 import org.knowm.xchange.okcoin.dto.account.OkCoinUserInfo;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinDepth;
+import org.knowm.xchange.okcoin.dto.marketdata.OkCoinFutureIndex;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinTickerResponse;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinTrade;
 import org.knowm.xchange.okcoin.dto.trade.OkCoinBatchTradeResult;
@@ -260,4 +261,11 @@ public interface OkCoin {
       @FormParam("page_length") String pageLength,
       @FormParam("sign") ParamsDigest sign)
       throws IOException;
+
+  @GET
+  @Path(("future_index.do"))
+  OkCoinFutureIndex getFutureIndex(
+      @QueryParam("symbol") String symbol)
+      throws IOException;
+
 }
