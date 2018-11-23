@@ -40,6 +40,12 @@ public class OkCoinAccountServiceRaw extends OKCoinBaseTradeService {
     return returnOrThrow(futuresUserInfoCross);
   }
 
+  public OkCoinUserInfo getWalletInfo() throws IOException {
+    OkCoinUserInfo userInfo = okCoin.getWalletInfo(apikey, signatureCreator());
+
+    return returnOrThrow(userInfo);
+  }
+
   public OKCoinWithdraw withdraw(
       String currencySymbol, String withdrawAddress, BigDecimal amount, String target, String fee)
       throws IOException {

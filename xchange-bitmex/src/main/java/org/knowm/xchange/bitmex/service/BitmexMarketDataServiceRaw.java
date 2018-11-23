@@ -81,19 +81,24 @@ public class BitmexMarketDataServiceRaw extends BitmexBaseService {
     return null;
   }
 
-  public Trades getBitmexIndex(String symbol, Object... args)
-          throws IOException {
+  public List<BitmexPublicTrade> getBitmexIndex(String symbol, Object... args) throws IOException {
 
     List<BitmexPublicTrade> trades = new ArrayList<>();
 
     Integer limit = (Integer) args[0];
 
     for (int i = 0; trades.size() + 500 <= limit; i++) {
-      BitmexPublicTrade[] result = bitmex.getTrades(symbol, true, 500, i * 500);
+      BitmexPublicTrade[] result = bitmex.getTrades(symbol, true, 500, trades.size());
       trades.addAll(Arrays.asList(result));
     }
 
-    return null;
+    if (limit - trades.size() > 0) {
+      BitmexPublicTrade[] result =
+          bitmex.getTrades(symbol, true, limit - trades.size(), trades.size());
+      trades.addAll(Arrays.asList(result));
+    }
+
+    return trades;
   }
 
   public List<BitmexTicker> getTicker(String symbol) throws IOException {

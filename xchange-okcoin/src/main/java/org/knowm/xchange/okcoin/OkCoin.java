@@ -96,6 +96,11 @@ public interface OkCoin {
       @FormParam("api_key") String apikey, @FormParam("sign") ParamsDigest sign) throws IOException;
 
   @POST
+  @Path("wallet_info.do")
+  OkCoinUserInfo getWalletInfo(
+          @FormParam("api_key") String apikey, @FormParam("sign") ParamsDigest sign) throws IOException;
+
+  @POST
   @Path("future_userinfo_4fix.do")
   OkCoinUserInfo getFuturesUserInfoFixed(
       @FormParam("api_key") String api_key, @FormParam("sign") ParamsDigest sign)
@@ -263,9 +268,6 @@ public interface OkCoin {
       throws IOException;
 
   @GET
-  @Path(("future_index.do"))
-  OkCoinFutureIndex getFutureIndex(
-      @QueryParam("symbol") String symbol)
-      throws IOException;
-
+  @Path("future_index.do")
+  OkCoinFutureIndex getFutureIndex(@QueryParam("symbol") String symbol) throws IOException;
 }

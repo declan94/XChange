@@ -7,6 +7,7 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.bitmex.BitmexExchange;
 import org.knowm.xchange.bitmex.dto.account.BitmexTicker;
+import org.knowm.xchange.bitmex.dto.marketdata.BitmexPublicTrade;
 import org.knowm.xchange.currency.Currency;
 
 public class BitmexTickerIntegration {
@@ -17,6 +18,7 @@ public class BitmexTickerIntegration {
     BitmexMarketDataServiceRaw service =
         (BitmexMarketDataServiceRaw) exchange.getMarketDataService();
 
+    List<BitmexPublicTrade> index = service.getBitmexIndex(".BXBT", 10);
     List<BitmexTicker> tickers = service.getTicker(Currency.XBT.getSymbol());
     //    BitmexTicker ticker = tickers.get(0);
     //    assertThat(ticker.getAskPrice()).isGreaterThan(BigDecimal.ZERO);

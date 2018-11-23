@@ -8,7 +8,6 @@ import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.Trades;
 import org.knowm.xchange.okcoin.FuturesContract;
 import org.knowm.xchange.okcoin.OkCoinAdapters;
-import org.knowm.xchange.okcoin.dto.marketdata.OkCoinFutureIndex;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 
 public class OkCoinFuturesMarketDataService extends OkCoinMarketDataServiceRaw
@@ -60,5 +59,4 @@ public class OkCoinFuturesMarketDataService extends OkCoinMarketDataServiceRaw
           getFuturesTrades(currencyPair, futuresContract), currencyPair);
     }
   }
-
 }

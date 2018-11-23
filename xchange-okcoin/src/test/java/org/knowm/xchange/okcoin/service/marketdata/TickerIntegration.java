@@ -9,6 +9,8 @@ import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.okcoin.OkCoinExchange;
+import org.knowm.xchange.okcoin.dto.marketdata.OkCoinFutureIndex;
+import org.knowm.xchange.okcoin.service.OkCoinMarketDataService;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 
 /** @author timmolter */
@@ -36,5 +38,17 @@ public class TickerIntegration {
     Ticker ticker = marketDataService.getTicker(new CurrencyPair("BTC", "USD"));
     System.out.println(ticker.toString());
     assertThat(ticker).isNotNull();
+  }
+
+  @Test
+  public void indexTest() throws Exception {
+    ExchangeSpecification exSpec = new ExchangeSpecification(OkCoinExchange.class);
+    exSpec.setExchangeSpecificParametersItem("Use_Intl", false);
+
+    Exchange exchange = ExchangeFactory.INSTANCE.createExchange(exSpec);
+    OkCoinMarketDataService marketDataService =
+        (OkCoinMarketDataService) exchange.getMarketDataService();
+    OkCoinFutureIndex index = marketDataService.getFutureIndex(CurrencyPair.BTC_USD);
+    System.out.println(index.toString());
   }
 }
