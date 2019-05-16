@@ -15,7 +15,7 @@ import org.knowm.xchange.independentreserve.dto.marketdata.IndependentReserveTic
 public interface IndependentReserve {
 
   @GET
-  @Path("/GetOrderBook")
+  @Path("/GetAllOrders")
   IndependentReserveOrderBook getOrderBook(
       @QueryParam("primaryCurrencyCode") String primaryCurrencyCode,
       @QueryParam("secondaryCurrencyCode") String secondaryCurrencyCode)
@@ -27,23 +27,4 @@ public interface IndependentReserve {
       @QueryParam("primaryCurrencyCode") String primaryCurrencyCode,
       @QueryParam("secondaryCurrencyCode") String secondaryCurrencyCode)
       throws IOException;
-
-  //    @GET
-  //    @Path("ticker/")
-  //    public IndependentReserveTicker getTicker() throws IOException;
-  //
-  //    /**
-  //     * Returns descending list of transactions.
-  //     */
-  //    @GET
-  //    @Path("transactions/")
-  //    public IndependentReserveTransaction[] getTransactions() throws IOException;
-  //
-  //    /**
-  //     * Returns descending list of transactions.
-  //     */
-  //    @GET
-  //    @Path("transactions/")
-  //    public IndependentReserveTransaction[] getTransactions(@QueryParam("time") String time)
-  // throws IOException;
 }

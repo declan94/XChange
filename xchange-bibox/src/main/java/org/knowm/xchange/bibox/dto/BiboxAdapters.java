@@ -11,6 +11,7 @@ import org.knowm.xchange.bibox.dto.account.BiboxDeposit;
 import org.knowm.xchange.bibox.dto.account.BiboxWithdrawal;
 import org.knowm.xchange.bibox.dto.marketdata.BiboxMarket;
 import org.knowm.xchange.bibox.dto.marketdata.BiboxTicker;
+import org.knowm.xchange.bibox.dto.trade.BiboxDeals;
 import org.knowm.xchange.bibox.dto.trade.BiboxOrder;
 import org.knowm.xchange.bibox.dto.trade.BiboxOrderBook;
 import org.knowm.xchange.bibox.dto.trade.BiboxOrderBookEntry;
@@ -26,6 +27,8 @@ import org.knowm.xchange.dto.account.FundingRecord.Type;
 import org.knowm.xchange.dto.account.Wallet;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
+import org.knowm.xchange.dto.marketdata.Trade;
+import org.knowm.xchange.dto.marketdata.Trades;
 import org.knowm.xchange.dto.marketdata.Trades.TradeSortType;
 import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.dto.meta.ExchangeMetaData;
@@ -84,14 +87,10 @@ public class BiboxAdapters {
   public static OrderBook adaptOrderBook(BiboxOrderBook orderBook, CurrencyPair currencyPair) {
     return new OrderBook(
         new Date(orderBook.getUpdateTime()),
-        orderBook
-            .getAsks()
-            .stream()
+        orderBook.getAsks().stream()
             .map(e -> adaptOrderBookOrder(e, OrderType.ASK, currencyPair))
             .collect(Collectors.toList()),
-        orderBook
-            .getBids()
-            .stream()
+        orderBook.getBids().stream()
             .map(e -> adaptOrderBookOrder(e, OrderType.BID, currencyPair))
             .collect(Collectors.toList()));
   }
@@ -106,9 +105,7 @@ public class BiboxAdapters {
 
   public static OpenOrders adaptOpenOrders(BiboxOrders biboxOpenOrders) {
     return new OpenOrders(
-        biboxOpenOrders
-            .getItems()
-            .stream()
+        biboxOpenOrders.getItems().stream()
             .map(BiboxAdapters::adaptLimitOpenOrder)
             .collect(Collectors.toList()));
   }
@@ -132,16 +129,14 @@ public class BiboxAdapters {
     for (BiboxMarket biboxMarket : markets) {
       pairMeta.put(
           new CurrencyPair(biboxMarket.getCoinSymbol(), biboxMarket.getCurrencySymbol()),
-          new CurrencyPairMetaData(null, null, null, null));
+          new CurrencyPairMetaData(null, null, null, null, null));
     }
     return new ExchangeMetaData(pairMeta, null, null, null, null);
   }
 
   public static UserTrades adaptUserTrades(BiboxOrders biboxOrderHistory) {
     List<UserTrade> trades =
-        biboxOrderHistory
-            .getItems()
-            .stream()
+        biboxOrderHistory.getItems().stream()
             .map(BiboxAdapters::adaptUserTrade)
             .collect(Collectors.toList());
     return new UserTrades(trades, TradeSortType.SortByID);
@@ -149,6 +144,7 @@ public class BiboxAdapters {
 
   private static UserTrade adaptUserTrade(BiboxOrder order) {
     return new UserTrade.Builder()
+        .orderId(Long.toString(order.getId()))
         .id(Long.toString(order.getId()))
         .currencyPair(new CurrencyPair(order.getCoinSymbol(), order.getCurrencySymbol()))
         .price(order.getPrice())
@@ -161,8 +157,7 @@ public class BiboxAdapters {
   }
 
   public static List<OrderBook> adaptAllOrderBooks(List<BiboxOrderBook> biboxOrderBooks) {
-    return biboxOrderBooks
-        .stream()
+    return biboxOrderBooks.stream()
         .map(ob -> BiboxAdapters.adaptOrderBook(ob, adaptCurrencyPair(ob.getPair())))
         .collect(Collectors.toList());
   }
@@ -215,6 +210,38 @@ public class BiboxAdapters {
         return Status.FAILED;
       default:
         throw new RuntimeException("Unknown status of bibox deposit: " + status);
+    }
+  }
+
+  public static Trades adaptDeals(List<BiboxDeals> biboxDeals, CurrencyPair currencyPair) {
+    List<Trade> trades =
+        biboxDeals.stream()
+            .map(
+                d ->
+                    new Trade(
+                        convertSide(d.getSide()),
+                        d.getAmount(),
+                        currencyPair,
+                        d.getPrice(),
+                        new Date(d.getTime()),
+                        d.getId()))
+            .collect(Collectors.toList());
+    return new Trades(trades, TradeSortType.SortByTimestamp);
+  }
+  /**
+   * transaction side，1-bid，2-ask
+   *
+   * @param side
+   * @return
+   */
+  private static OrderType convertSide(int side) {
+    switch (side) {
+      case 1:
+        return OrderType.BID;
+      case 2:
+        return OrderType.ASK;
+      default:
+        throw new RuntimeException("Unknown order type (side) of bibox deal: " + side);
     }
   }
 }

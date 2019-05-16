@@ -4,15 +4,15 @@ import static org.knowm.xchange.currency.Currency.getInstance;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
-import java.util.TimeZone;
+import java.util.stream.Collectors;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -30,23 +30,16 @@ import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.dto.meta.ExchangeMetaData;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.UserTrade;
+import org.knowm.xchange.livecoin.dto.account.LivecoinBalance;
+import org.knowm.xchange.livecoin.dto.marketdata.LivecoinAllOrderBooks;
+import org.knowm.xchange.livecoin.dto.marketdata.LivecoinOrder;
 import org.knowm.xchange.livecoin.dto.marketdata.LivecoinOrderBook;
 import org.knowm.xchange.livecoin.dto.marketdata.LivecoinRestriction;
 import org.knowm.xchange.livecoin.dto.marketdata.LivecoinTicker;
 import org.knowm.xchange.livecoin.dto.marketdata.LivecoinTrade;
-import org.knowm.xchange.livecoin.service.LivecoinAsksBidsData;
 import org.knowm.xchange.utils.DateUtils;
 
 public class LivecoinAdapters {
-
-  private static final SimpleDateFormat dateFormat =
-      new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-
-  static {
-    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-  }
-
-  private LivecoinAdapters() {}
 
   public static CurrencyPair adaptCurrencyPair(LivecoinRestriction product) {
     String[] data = product.getCurrencyPair().split("\\/");
@@ -62,24 +55,27 @@ public class LivecoinAdapters {
   }
 
   private static List<LimitOrder> toLimitOrderList(
-      LivecoinAsksBidsData[] levels, OrderType orderType, CurrencyPair currencyPair) {
+      List<LivecoinOrder> levels, OrderType orderType, CurrencyPair currencyPair) {
 
-    if (levels == null || levels.length == 0) {
-      return Collections.EMPTY_LIST;
+    if (levels == null || levels.isEmpty()) {
+      return Collections.emptyList();
     }
-    List<LimitOrder> allLevels = new ArrayList<>(levels.length);
-    for (LivecoinAsksBidsData ask : levels) {
-      allLevels.add(
-          new LimitOrder(orderType, ask.getQuantity(), currencyPair, "0", null, ask.getRate()));
+    List<LimitOrder> allLevels = new ArrayList<>(levels.size());
+    for (LivecoinOrder ask : levels) {
+      if (ask != null) {
+        allLevels.add(
+            new LimitOrder(orderType, ask.getQuantity(), currencyPair, "0", null, ask.getRate()));
+      }
     }
 
     return allLevels;
   }
 
   public static Map<CurrencyPair, LivecoinOrderBook> adaptToCurrencyPairKeysMap(
-      Map<String, LivecoinOrderBook> orderBooksRaw) {
+      LivecoinAllOrderBooks orderBooksRaw) {
 
-    Set<Map.Entry<String, LivecoinOrderBook>> entries = orderBooksRaw.entrySet();
+    Set<Map.Entry<String, LivecoinOrderBook>> entries =
+        orderBooksRaw.getOrderBooksByPair().entrySet();
     Map<CurrencyPair, LivecoinOrderBook> converted = new HashMap<>(entries.size());
     for (Map.Entry<String, LivecoinOrderBook> entry : entries) {
       String[] currencyPairSplit = entry.getKey().split("/");
@@ -109,9 +105,13 @@ public class LivecoinAdapters {
         currencyPairs.put(
             pair,
             new CurrencyPairMetaData(
-                existing.getTradingFee(), minSize, existing.getMaximumAmount(), priceScale));
+                existing.getTradingFee(),
+                minSize,
+                existing.getMaximumAmount(),
+                priceScale,
+                existing.getFeeTiers()));
       } else {
-        currencyPairs.put(pair, new CurrencyPairMetaData(null, minSize, null, priceScale));
+        currencyPairs.put(pair, new CurrencyPairMetaData(null, minSize, null, priceScale, null));
       }
 
       if (!currencies.containsKey(pair.base)) currencies.put(pair.base, null);
@@ -121,14 +121,14 @@ public class LivecoinAdapters {
     return new ExchangeMetaData(currencyPairs, currencies, null, null, true);
   }
 
-  public static Trades adaptTrades(LivecoinTrade[] nativeTrades, CurrencyPair currencyPair) {
+  public static Trades adaptTrades(List<LivecoinTrade> tradesRaw, CurrencyPair currencyPair) {
 
-    if (nativeTrades.length == 0) {
-      return new Trades(Collections.EMPTY_LIST);
+    if (tradesRaw.isEmpty()) {
+      return new Trades(Collections.emptyList());
     }
-    List<Trade> trades = new ArrayList<>(nativeTrades.length);
+    List<Trade> trades = new ArrayList<>(tradesRaw.size());
 
-    for (LivecoinTrade trade : nativeTrades) {
+    for (LivecoinTrade trade : tradesRaw) {
       OrderType type = trade.getType().equals("SELL") ? OrderType.BID : OrderType.ASK;
       Trade t =
           new Trade(
@@ -141,7 +141,7 @@ public class LivecoinAdapters {
       trades.add(t);
     }
 
-    return new Trades(trades, nativeTrades[0].getId(), TradeSortType.SortByID);
+    return new Trades(trades, tradesRaw.get(0).getId(), TradeSortType.SortByID);
   }
 
   private static Date parseDate(Long rawDateLong) {
@@ -207,7 +207,10 @@ public class LivecoinAdapters {
         new CurrencyPair(ccyA, ccyB),
         map.get("id").toString(),
         DateUtils.fromUnixTime(Double.valueOf(map.get("issueTime").toString()).longValue()),
-        new BigDecimal(map.get("price").toString()),
+        Optional.ofNullable(map.get("price"))
+            .map(Object::toString)
+            .map(BigDecimal::new)
+            .orElse(null),
         null,
         null,
         null,
@@ -235,7 +238,7 @@ public class LivecoinAdapters {
         price,
         DateUtils.fromMillisUtc(Long.valueOf(map.get("date").toString())),
         id,
-        map.get("externalKey").toString(),
+        Optional.ofNullable(map.get("externalKey")).map(Object::toString).orElse(null),
         new BigDecimal(map.get("fee").toString()),
         getInstance(map.get("taxCurrency").toString()));
   }
@@ -245,7 +248,7 @@ public class LivecoinAdapters {
     if (map.get("type").toString().equals("DEPOSIT")) type = FundingRecord.Type.DEPOSIT;
 
     return new FundingRecord(
-        map.get("externalKey").toString(),
+        Optional.ofNullable(map.get("externalKey")).map(Object::toString).orElse(null),
         DateUtils.fromMillisUtc(Long.valueOf(map.get("date").toString())),
         getInstance(map.get("fixedCurrency").toString()),
         new BigDecimal(map.get("amount").toString()),
@@ -258,12 +261,9 @@ public class LivecoinAdapters {
         null);
   }
 
-  public static List<Wallet> adaptWallets(List<Map> data) {
-    Map<Currency, WalletBuilder> wallets = new HashMap<>();
-    for (Map balance : data) {
-      String type = balance.get("type").toString();
-      String ccy = balance.get("currency").toString();
-      String value = balance.get("value").toString();
+  public static Wallet adaptWallet(List<LivecoinBalance> livecoinBalances) {
+    Map<Currency, Balance.Builder> balanceBuildersByCurrency = new HashMap<>();
+    for (LivecoinBalance livecoinBalance : livecoinBalances) {
 
       // Livecoin has a currency Bricktox (XBT) which is different from XChange Bitcoin (XBT). See
       // Currency.XBT.
@@ -271,52 +271,33 @@ public class LivecoinAdapters {
       // balance.
       // As a result, XBT overrides BTC, so BTC becomes 0 (in most cases).
       // Excluding XBT.
-      if (ccy.equals("XBT")) {
+      if (livecoinBalance.getCurrency().equals("XBT")) {
         continue;
       }
 
-      Currency curr = getInstance(ccy);
+      Currency currency = getInstance(livecoinBalance.getCurrency());
 
-      WalletBuilder builder = wallets.get(curr);
+      Balance.Builder builder = balanceBuildersByCurrency.get(currency);
       if (builder == null) {
-        builder = new WalletBuilder(curr);
-        wallets.put(curr, builder);
+        builder = new Balance.Builder().currency(currency);
+        balanceBuildersByCurrency.put(currency, builder);
       }
-      builder.add(type, value);
+      BigDecimal value = livecoinBalance.getValue();
+      switch (livecoinBalance.getType()) {
+        case "total":
+          builder.total(value);
+          break;
+        case "available":
+          builder.available(value);
+          break;
+        case "trade":
+          builder.frozen(value);
+          break;
+      }
     }
-
-    List<Wallet> res = new ArrayList<>();
-    for (WalletBuilder builder : wallets.values()) {
-      res.add(builder.build());
-    }
-
-    return res;
-  }
-
-  static class WalletBuilder {
-    private Currency currency;
-    private Map<String, BigDecimal> map = new HashMap<>();
-
-    WalletBuilder(Currency currency) {
-      this.currency = currency;
-    }
-
-    public Wallet build() {
-      return new Wallet(
-          currency.getCurrencyCode(),
-          new Balance(
-              currency,
-              map.get("total"),
-              map.get("available"),
-              map.get("trade"),
-              BigDecimal.ZERO,
-              BigDecimal.ZERO,
-              BigDecimal.ZERO,
-              BigDecimal.ZERO));
-    }
-
-    public void add(String type, String value) {
-      map.put(type, new BigDecimal(value));
-    }
+    return new Wallet(
+        balanceBuildersByCurrency.values().stream()
+            .map(Balance.Builder::build)
+            .collect(Collectors.toList()));
   }
 }

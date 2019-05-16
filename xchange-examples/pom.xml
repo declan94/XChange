@@ -1,13 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.knowm.xchange</groupId>
 		<artifactId>xchange-parent</artifactId>
-		<version>4.3.7-SNAPSHOT</version>
+		<version>4.3.19-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>xchange-examples</artifactId>
@@ -68,6 +66,12 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>xchange-binance</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- XChange Bithumb exchange support -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>xchange-bithumb</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!-- XChange Bitstamp exchange support -->
@@ -142,6 +146,12 @@
 			<artifactId>xchange-coinbase</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<!-- XChange Coinbene support -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>xchange-coinbene</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- XChange CoinEgg support -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -151,7 +161,7 @@
 		<!-- XChange GDAX support -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>xchange-gdax</artifactId>
+			<artifactId>xchange-coinbasepro</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!-- XChange BitcoinAverage support -->
@@ -164,6 +174,18 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>xchange-cexio</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+        <!-- Xchange Cobinhood exchange support -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>xchange-cobinhood</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+		<!-- Xchange Coingi exchange support -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>xchange-coingi</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!-- XChange ANX exchange support -->
@@ -304,6 +326,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>xchange-upbit</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>xchange-vircurex</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -362,11 +389,6 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>xchange-kucoin</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
 			<artifactId>xchange-gateio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -393,6 +415,21 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>xchange-zaif</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>xchange-coindirect</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+  	<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>xchange-dvchain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+  		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>xchange-bankera</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

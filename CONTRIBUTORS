@@ -16,9 +16,12 @@ The following list of authors was automatically generated from the XChange proje
 
     git log --format='%aN' | sort -u
 
+
 小田謙太郎
 =
+Aaron Jang
 Achterhoeker
+Adam Walczak
 Adam from WALCZAK.IT
 Alejandro Reyero
 Aleksey Baryshnikov
@@ -28,12 +31,17 @@ Alexey Z
 Allen Day
 Alvin Singh
 Andraž
+Andre Reiter
+Andrea Fossi
 André Reiter
 Anthony Tsang
+Arran Duff
+Arsentii Nerushev
 Arthurm1
 Artur
 Artur M
 Baffo32
+BenTrapani
 Benedict Wong
 Benedikt Bünz
 Bilgin Ibryam
@@ -46,22 +54,32 @@ Carlos Lopez-Camey
 Chris Cannell
 Chris Rico
 Christian Strässle
+Claus235
 Cray Imperative
 Cristian Lucaci
+Cryptonit Exchange
+Cyril
 Daniel Cohen
+Daniela Hajnikova
 Danilo Guimarães
 Dave Seyb
 David FRANCOIS
+David Jirovec
 David Kreutzer
+Dennis Ruhe
 Devin Smith
+Djihad BENGATI
 Dmitry Fedorenko
+Dmitry Sklyadnev
 Dolezal Zdenek
+Donald Jackson
 Douggie
 DrawFun
 Eric Anderson
 Erland Lewin
 EzBar
 Ezer Bar-Aviv
+Fabian
 Fabien André
 Felipe Micaroni Lalli
 Flemingjp
@@ -69,24 +87,37 @@ Frank Kaiser
 GENiALi
 Gary Rowe
 Gianluigi
+Giedrius Koksta
+Giedrius Kokšta
+Gilbert Kimutai
 Giridhar Nandigam
 Graham Crockford
 Guillaume Labbé-Morissette
 Guillaume Morissette
 HairyFotr
 Herman Ofenböck
+Hypeon
+陈晔
+Ian W
 Ignacio Larranaga
+Igor Velichkevich
+Igor.Velichkevich
+Iury V. Vinogradov
 JH
 JK
+Jack McKenzie
+Jakub Kalicki
 James
 James Edwards
 James Fleming
 Jan Akerman
 Jan Vojt
 Jan X Marek
+Jan-Terje Sørensen
 Janosch Gräf
 Jean-Pierre Froud
 Jim Northrup
+Joakim Johansson
 Joe Zhou
 Johannes Zweng
 Jonathan Heusser
@@ -94,14 +125,17 @@ Jonathan Tse
 Jonny Heggheim
 Joseph Marcilla
 Julian Liebl
+Juliusz Choinski
 Jure Grabnar
 Justin Ramsey
+Kalle Rosenbaum
 Kamil Żbikowski
 Karol Pysniak
 Karsten Nilsen
 Ken Fehling
 Kenneth Jorgensen
 Kevin Britz
+Kevin Gates
 Kevin Jannis
 Kolozsy Gábor
 Konstantin Alexandrov
@@ -110,12 +144,15 @@ Konstantin Tenman
 Krystian Nowak
 Krzysiek
 Krzysztof Cieślak
+Leone Lisboa Magevski
 Leonid Shamis
 LifeIsGoodMF
+Luca Forni
 Luca Rosellini
 Lukas Zaoralek
 Lukáš Krejza
 Macarse
+Marc Deveaux
 Marius Hillenbrand
 MartianTech
 Martin Kubliniak
@@ -125,15 +162,24 @@ Matija Mazi
 Matt Read
 Matt Whitlock
 Matthew Downey
+Matthew Peacock
 Maxim Fefilov
+Mert Güner
+MertGuner
+Micah Lerner
 Michael Lagace
 Michael Lagacé
 Mike Gerlyand
 Mikelle
 Mikhail Wall
+Mindaugas Rolius
 Miso Oprendek
 Muffon
+Nathan King
 Nicolas Pinot
+Niels
+Niels Draaisma
+Nikita Belenkiy
 Niko Schmuck
 Norbert Sándor
 ObsessiveOrange
@@ -144,11 +190,16 @@ Oscar Francia
 Pablo Lopez
 Pan, Xinyang
 Panchen
+Pavel Chertalev
+Pavel Niedoba
 Pavlo Pastushok
 Peter Keeler
 Peter N. Steinmetz
 Piotr Ladyzynski
 Piotr Ładyżyński
+Premek
+Premysl Vyhnal
+RadeK
 Radu
 Rafał Krupiński
 Rafal Krupinski
@@ -160,16 +211,23 @@ Roman Belkov
 Ronald Bultman
 Ryan Fox
 Ryan Sundberg
+Sascha
+Sascha Zieger
 Sebastiaan van Erk
 Sergey Belyakov
 Sergey Lukashevich
 Sergey Tselovalnikov
+Sergii Pogodin
 Sergio Rodriguez
 Sikerdebaard
+Snailz
+Steven te Brinke
 Stuart Low
 Sumedha Saxena
+Sylvain
 Sébastien Koch
 TM Lee
+Tangjun He
 The Gitter Badger
 Theofanis Pantelides
 Thomas Diesler
@@ -178,6 +236,7 @@ Tillerino
 Tim Molter
 Tomas Cere
 Tomáš Procházka
+Tong Yang
 Tony Skulk
 Travis Collins
 U-TORA\cristian.lucaci
@@ -185,6 +244,7 @@ Ujjwal Kabra
 Uwe
 Vassilis Papavassiliou
 Vassilis Ppapavassiliou
+Victor Didenko
 Victor Mezrin
 Viktor.Zakalyuzhnyy
 Wojciech Langiewicz
@@ -199,9 +259,11 @@ Zorge.R
 ahmetoz
 ajdev
 aleks-azen
+aleksazen@gmail.com
 alessandro luppi
 alobarev
 amjad1210
+anton
 anw
 apaygh
 artvel
@@ -222,6 +284,8 @@ cymp
 cyril
 datbui
 david-yam
+dependabot[bot]
+desinerlee
 deveth0
 dhenry
 dimecoin
@@ -236,13 +300,18 @@ gmorpheme
 godoorsun
 gpwclark
 hardsky
+hbwhyte
 henry
+huguanrui
 hurricup
 interwater
 ivan.kosianenko
 jamespedwards42
+jasonliu119
+jchoinski
 jclaruelle
 jcuypers
+jmcklondonuk
 johndemic
 karol.pysniak@turbineam.com
 kisapmata
@@ -251,18 +320,22 @@ kyr7
 lapoor
 lazy_p@163.com
 lazyp
+lichunmao
 m4g4
 makarid
 matija.mazi@gmail.com
 matt pearson
 mazi
 mdeverdelhan
+mert güner
 mfarid
 mharris021
 michaelscheung
 miho
+mikhw
 mnapier
 moardm
+nado04@gmail.com
 nakedpony
 nicostouch
 nimrood
@@ -271,11 +344,13 @@ nxtpool@gmail.com
 o
 odaken
 paul
+pavel
 pchertalev
 perlboy
 piotr
 pnkwpk
 pozheg
+procyon
 seanrobb
 sebastienkoch
 semihunaldi
@@ -290,11 +365,18 @@ stephane-coulomb
 stevenuray
 suchac
 swiesend
+taoruifu
 tbosman
 tim
 timmolter
+tobakk
+trix
+trix13
 veken0m
 vulicevic
+w0lph
+walec51
+water0126
 will
 wvr
 ww3456

@@ -15,10 +15,13 @@ import org.knowm.xchange.huobi.dto.account.results.HuobiBalanceResult;
 import org.knowm.xchange.huobi.dto.account.results.HuobiCreateWithdrawResult;
 import org.knowm.xchange.huobi.dto.account.results.HuobiDepositAddressResult;
 import org.knowm.xchange.huobi.dto.account.results.HuobiDepositAddressWithTagResult;
+import org.knowm.xchange.huobi.dto.account.results.HuobiFundingHistoryResult;
+import org.knowm.xchange.huobi.dto.account.results.HuobiWithdrawFeeRangeResult;
 import org.knowm.xchange.huobi.dto.marketdata.results.HuobiAssetPairsResult;
 import org.knowm.xchange.huobi.dto.marketdata.results.HuobiAssetsResult;
 import org.knowm.xchange.huobi.dto.marketdata.results.HuobiDepthResult;
 import org.knowm.xchange.huobi.dto.marketdata.results.HuobiTickerResult;
+import org.knowm.xchange.huobi.dto.marketdata.results.HuobiTradesResult;
 import org.knowm.xchange.huobi.dto.trade.HuobiCreateOrderRequest;
 import org.knowm.xchange.huobi.dto.trade.results.HuobiCancelOrderResult;
 import org.knowm.xchange.huobi.dto.trade.results.HuobiOrderInfoResult;
@@ -40,6 +43,11 @@ public interface Huobi {
       throws IOException;
 
   @GET
+  @Path("market/history/trade")
+  HuobiTradesResult getTrades(@QueryParam("symbol") String symbol, @QueryParam("size") int size)
+      throws IOException;
+
+  @GET
   @Path("v1/common/symbols")
   HuobiAssetPairsResult getAssetPairs() throws IOException;
 
@@ -51,6 +59,20 @@ public interface Huobi {
   @Path("v1/dw/deposit-virtual/addresses")
   HuobiDepositAddressResult getDepositAddress(
       @QueryParam("currency") String currency,
+      @QueryParam("AccessKeyId") String apiKey,
+      @QueryParam("SignatureMethod") String signatureMethod,
+      @QueryParam("SignatureVersion") int signatureVersion,
+      @QueryParam("Timestamp") String nonce,
+      @QueryParam("Signature") ParamsDigest signature)
+      throws IOException;
+
+  @GET
+  @Path("v1/query/deposit-withdraw")
+  HuobiFundingHistoryResult getFundingHistory(
+      @QueryParam("currency") String currency,
+      @QueryParam("type") String type,
+      @QueryParam("from") String from,
+      @QueryParam("size") String size,
       @QueryParam("AccessKeyId") String apiKey,
       @QueryParam("SignatureMethod") String signatureMethod,
       @QueryParam("SignatureVersion") int signatureVersion,
@@ -74,6 +96,18 @@ public interface Huobi {
   @Consumes(MediaType.APPLICATION_JSON)
   HuobiCreateWithdrawResult createWithdraw(
       HuobiCreateWithdrawRequest body,
+      @QueryParam("AccessKeyId") String apiKey,
+      @QueryParam("SignatureMethod") String signatureMethod,
+      @QueryParam("SignatureVersion") int signatureVersion,
+      @QueryParam("Timestamp") String nonce,
+      @QueryParam("Signature") ParamsDigest signature)
+      throws IOException;
+
+  @GET
+  @Path("v1/dw/withdraw-virtual/fee-range")
+  @Consumes(MediaType.APPLICATION_JSON)
+  HuobiWithdrawFeeRangeResult getWithdrawFeeRange(
+      @QueryParam("currency") String currency,
       @QueryParam("AccessKeyId") String apiKey,
       @QueryParam("SignatureMethod") String signatureMethod,
       @QueryParam("SignatureVersion") int signatureVersion,

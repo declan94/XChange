@@ -14,10 +14,7 @@ import org.knowm.xchange.cexio.dto.account.CexIOBalanceInfo;
 import org.knowm.xchange.cexio.dto.marketdata.CexIODepth;
 import org.knowm.xchange.cexio.dto.marketdata.CexIOTicker;
 import org.knowm.xchange.cexio.dto.marketdata.CexIOTrade;
-import org.knowm.xchange.cexio.dto.trade.CexIOArchivedOrder;
-import org.knowm.xchange.cexio.dto.trade.CexIOFullOrder;
-import org.knowm.xchange.cexio.dto.trade.CexIOOpenOrder;
-import org.knowm.xchange.cexio.dto.trade.CexIOOrder;
+import org.knowm.xchange.cexio.dto.trade.*;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -198,8 +195,7 @@ public class CexIOAdapters {
               orderType,
               cexIOOrder.getAmount(),
               cexIOOrder.getAmount().subtract(cexIOOrder.getPending()),
-              new CurrencyPair(
-                  cexIOOrder.getTradableIdentifier(), cexIOOrder.getTransactionCurrency()),
+              new CurrencyPair(cexIOOrder.getSymbol1(), cexIOOrder.getSymbol2()),
               id,
               DateUtils.fromMillisUtc(cexIOOrder.getTime()),
               cexIOOrder.getPrice()));
@@ -216,7 +212,7 @@ public class CexIOAdapters {
       BigDecimal originalAmount = cexIOArchivedOrder.amount;
       CurrencyPair currencyPair =
           new CurrencyPair(cexIOArchivedOrder.symbol1, cexIOArchivedOrder.symbol2);
-      BigDecimal price = cexIOArchivedOrder.price;
+      BigDecimal price = cexIOArchivedOrder.averageExecutionPrice;
       String id = cexIOArchivedOrder.id;
       String orderId = cexIOArchivedOrder.orderId;
 
@@ -274,17 +270,25 @@ public class CexIOAdapters {
       BigDecimal remains = new BigDecimal(cexIOOrder.remains);
       cumulativeAmount = originalAmount.subtract(remains);
     }
-
-    String tradedAmount =
+    BigDecimal totalAmountMaker =
         cexIOOrder.totalAmountMaker != null
-            ? cexIOOrder.totalAmountMaker
-            : cexIOOrder.totalAmountTaker;
+            ? new BigDecimal(cexIOOrder.totalAmountMaker)
+            : BigDecimal.ZERO;
+    BigDecimal totalAmountTaker =
+        cexIOOrder.totalAmountTaker != null
+            ? new BigDecimal(cexIOOrder.totalAmountTaker)
+            : BigDecimal.ZERO;
+    BigDecimal tradedAmount = totalAmountMaker.add(totalAmountTaker);
+
     BigDecimal averagePrice = null;
-    if (cumulativeAmount != null && tradedAmount != null) {
-      averagePrice = new BigDecimal(tradedAmount).divide(cumulativeAmount, 2, RoundingMode.HALF_UP);
+    if (cumulativeAmount != null && tradedAmount.compareTo(BigDecimal.ZERO) > 0) {
+      averagePrice = tradedAmount.divide(cumulativeAmount, 2, RoundingMode.HALF_UP);
     }
-    String feeAmount = cexIOOrder.feeMaker != null ? cexIOOrder.feeMaker : cexIOOrder.feeTaker;
-    BigDecimal fee = feeAmount != null ? new BigDecimal(feeAmount) : null;
+    BigDecimal feeMaker =
+        cexIOOrder.feeMaker != null ? new BigDecimal(cexIOOrder.feeMaker) : BigDecimal.ZERO;
+    BigDecimal feeTaker =
+        cexIOOrder.feeTaker != null ? new BigDecimal(cexIOOrder.feeTaker) : BigDecimal.ZERO;
+    BigDecimal fee = feeMaker.add(feeTaker);
     return new LimitOrder(
         orderType,
         originalAmount,
@@ -294,7 +298,7 @@ public class CexIOAdapters {
         limitPrice,
         averagePrice,
         cumulativeAmount,
-        fee,
+        fee.compareTo(BigDecimal.ZERO) > 0 ? fee : null,
         status);
   }
 
@@ -331,6 +335,20 @@ public class CexIOAdapters {
         return Order.OrderStatus.CANCELED;
       }
     }
+    return Order.OrderStatus.UNKNOWN;
+  }
+
+  /**
+   * CexIO position status is not documented, testing API we can infer that they are similar to
+   * order status {@link #adaptOrderStatus(CexIOOpenOrder)}
+   *
+   * @param cexioPosition cex raw order
+   * @return OrderStatus
+   */
+  public static Order.OrderStatus adaptPositionStatus(CexioPosition cexioPosition) {
+    if ("c".equalsIgnoreCase(cexioPosition.getStatus())) return Order.OrderStatus.CANCELED;
+    if ("d".equalsIgnoreCase(cexioPosition.getStatus())) return Order.OrderStatus.FILLED;
+    if ("a".equalsIgnoreCase(cexioPosition.getStatus())) return Order.OrderStatus.NEW;
     return Order.OrderStatus.UNKNOWN;
   }
 
