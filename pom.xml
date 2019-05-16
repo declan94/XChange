@@ -190,6 +190,7 @@
         <module>xchange-wex</module>
         <module>xchange-yobit</module>
         <module>xchange-zaif</module>
+        <module>xchange-okex-v3</module>
     </modules>
 
     <repositories>
