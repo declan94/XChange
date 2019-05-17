@@ -1,0 +1,35 @@
+[
+  {
+    "instrument_id":"BTC-USD-190322",
+    "underlying_index":"BTC",
+    "quote_currency":"USD",
+    "tick_size":"0.01",
+    "contract_val":"100",
+    "listing":"2019-03-08",
+    "delivery":"2019-03-22",
+    "trade_increment":"1",
+    "alias":"this_week"
+  },
+  {
+    "instrument_id":"BTC-USD-190329",
+    "underlying_index":"BTC",
+    "quote_currency":"USD",
+    "tick_size":"0.01",
+    "contract_val":"100",
+    "listing":"2018-12-14",
+    "delivery":"2019-03-29",
+    "trade_increment":"1",
+    "alias":"next_week"
+  },
+  {
+    "instrument_id":"BTC-USD-190628",
+    "underlying_index":"BTC",
+    "quote_currency":"USD",
+    "tick_size":"0.01",
+    "contract_val":"100",
+    "listing":"2019-03-15",
+    "delivery":"2019-06-28",
+    "trade_increment":"1",
+    "alias":"quarter"
+  }
+]
