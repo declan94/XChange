@@ -19,7 +19,7 @@ public class OkexInstrumentsJsonTest {
                         "/org/knowm/xchange/okex/v3/example-futures-instruments.json");
 
         ObjectMapper mapper = new ObjectMapper();
-        FutruesInstrument[] okexInstruments = mapper.readValue(is, FutruesInstrument[].class);
+        FuturesInstrument[] okexInstruments = mapper.readValue(is, FuturesInstrument[].class);
 
         // Verify that the example data was unmarshalled correctly
         assertThat(okexInstruments.length).isEqualTo(3);

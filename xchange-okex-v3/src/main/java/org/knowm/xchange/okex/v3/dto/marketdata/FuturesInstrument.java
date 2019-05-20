@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "trade_increment",
         "alias"
 })
-public class FutruesInstrument {
+public class FuturesInstrument {
 
     @JsonProperty("instrument_id")
     private String instrumentId;
@@ -127,4 +127,18 @@ public class FutruesInstrument {
         this.alias = alias;
     }
 
+    @Override
+    public String toString() {
+        return "FuturesInstrument{" +
+                "instrumentId='" + instrumentId + '\'' +
+                ", underlyingIndex='" + underlyingIndex + '\'' +
+                ", quoteCurrency='" + quoteCurrency + '\'' +
+                ", tickSize='" + tickSize + '\'' +
+                ", contractVal='" + contractVal + '\'' +
+                ", listing='" + listing + '\'' +
+                ", delivery='" + delivery + '\'' +
+                ", tradeIncrement='" + tradeIncrement + '\'' +
+                ", alias='" + alias + '\'' +
+                '}';
+    }
 }
