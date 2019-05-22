@@ -5,7 +5,7 @@ import org.knowm.xchange.service.BaseExchangeService;
 
 public class OkexBaseService extends BaseExchangeService<OkexExchange> {
 
-    public OkexBaseService(OkexExchange exchange) {
-        super(exchange);
-    }
+  public OkexBaseService(OkexExchange exchange) {
+    super(exchange);
+  }
 }
