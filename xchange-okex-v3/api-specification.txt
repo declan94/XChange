@@ -1,0 +1,8 @@
+Okex Exchange API v3 specification
+================================
+
+Public API
+
+Documentation
+-------------
+https://www.okex.com/docs/zh/#README

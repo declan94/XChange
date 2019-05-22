@@ -20,20 +20,28 @@ public class FuturesInstrument {
 
     @JsonProperty("instrument_id")
     private String instrumentId;
+
     @JsonProperty("underlying_index")
     private String underlyingIndex;
+
     @JsonProperty("quote_currency")
     private String quoteCurrency;
+
     @JsonProperty("tick_size")
     private String tickSize;
+
     @JsonProperty("contract_val")
     private String contractVal;
+
     @JsonProperty("listing")
     private String listing;
+
     @JsonProperty("delivery")
     private String delivery;
+
     @JsonProperty("trade_increment")
     private String tradeIncrement;
+
     @JsonProperty("alias")
     private String alias;
 
@@ -129,16 +137,34 @@ public class FuturesInstrument {
 
     @Override
     public String toString() {
-        return "FuturesInstrument{" +
-                "instrumentId='" + instrumentId + '\'' +
-                ", underlyingIndex='" + underlyingIndex + '\'' +
-                ", quoteCurrency='" + quoteCurrency + '\'' +
-                ", tickSize='" + tickSize + '\'' +
-                ", contractVal='" + contractVal + '\'' +
-                ", listing='" + listing + '\'' +
-                ", delivery='" + delivery + '\'' +
-                ", tradeIncrement='" + tradeIncrement + '\'' +
-                ", alias='" + alias + '\'' +
-                '}';
+        return "FuturesInstrument{"
+                + "instrumentId='"
+                + instrumentId
+                + '\''
+                + ", underlyingIndex='"
+                + underlyingIndex
+                + '\''
+                + ", quoteCurrency='"
+                + quoteCurrency
+                + '\''
+                + ", tickSize='"
+                + tickSize
+                + '\''
+                + ", contractVal='"
+                + contractVal
+                + '\''
+                + ", listing='"
+                + listing
+                + '\''
+                + ", delivery='"
+                + delivery
+                + '\''
+                + ", tradeIncrement='"
+                + tradeIncrement
+                + '\''
+                + ", alias='"
+                + alias
+                + '\''
+                + '}';
     }
 }
