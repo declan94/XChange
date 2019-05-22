@@ -1,35 +1,31 @@
 package org.knowm.xchange.okex.v3;
 
 public enum OkexFuturesPrompt {
+  ThisWeek("this_week"),
+  NextWeek("next_week"),
+  Month("month"),
+  Quarter("quarter");
 
-    ThisWeek("this_week"),
-    NextWeek("next_week"),
-    Month("month"),
-    Quarter("quarter");
+  private final String name;
 
-    private final String name;
+  /** Private constructor so it cannot be instantiated */
+  OkexFuturesPrompt(String name) {
+    this.name = name;
+  }
 
-    /**
-     * Private constructor so it cannot be instantiated
-     */
-    OkexFuturesPrompt(String name) {
-        this.name = name;
+  public static <T extends Enum<T>> T valueOfIgnoreCase(Class<T> enumeration, String name) {
+
+    for (T enumValue : enumeration.getEnumConstants()) {
+      if (enumValue.name().equalsIgnoreCase(name)) {
+        return enumValue;
+      }
     }
 
-    public static <T extends Enum<T>> T valueOfIgnoreCase(Class<T> enumeration, String name) {
+    throw new IllegalArgumentException(
+        String.format("There is no value with name '%s' in Enum %s", name, enumeration.getName()));
+  }
 
-        for (T enumValue : enumeration.getEnumConstants()) {
-            if (enumValue.name().equalsIgnoreCase(name)) {
-                return enumValue;
-            }
-        }
-
-        throw new IllegalArgumentException(
-                String.format("There is no value with name '%s' in Enum %s", name, enumeration.getName()));
-    }
-
-    public String getName() {
-        return name;
-    }
-
+  public String getName() {
+    return name;
+  }
 }

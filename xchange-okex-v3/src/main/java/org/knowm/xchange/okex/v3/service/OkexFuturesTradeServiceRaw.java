@@ -6,19 +6,19 @@ import org.knowm.xchange.okex.v3.dto.trade.OkexFuturesOrderResult;
 
 public class OkexFuturesTradeServiceRaw extends OkexBaseTradeService {
 
-    /**
-     * Constructor
-     *
-     * @param exchange
-     */
-    protected OkexFuturesTradeServiceRaw(OkexExchange exchange) {
-        super(exchange);
-    }
+  /**
+   * Constructor
+   *
+   * @param exchange
+   */
+  protected OkexFuturesTradeServiceRaw(OkexExchange exchange) {
+    super(exchange);
+  }
 
-    public OkexFuturesOrderResult placeFuturesOrder(OkexFuturesOrder order) {
-        OkexFuturesOrderResult result = okexFutures.placeFuturesOrder(order, apiKey, apiPassphrase, timestampNonceFactory, okexDigest);
-        return returnOrThrow(result);
-    }
-
-
+  public OkexFuturesOrderResult placeFuturesOrder(OkexFuturesOrder order) {
+    OkexFuturesOrderResult result =
+        okexFutures.placeFuturesOrder(
+            order, apiKey, apiPassphrase, timestampNonceFactory, okexDigest);
+    return returnOrThrow(result);
+  }
 }

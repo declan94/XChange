@@ -9,27 +9,26 @@ import si.mazi.rescu.RestProxyFactory;
 
 public class OkexBaseTradeService extends OkexBaseAuthenticatedService {
 
-    protected final OkexFutures okexFutures;
+  protected final OkexFutures okexFutures;
 
-    /**
-     * Constructor
-     *
-     * @param exchange
-     */
-    protected OkexBaseTradeService(OkexExchange exchange) {
-        super(exchange);
-        ExchangeSpecification specification = exchange.getExchangeSpecification();
-        okexFutures =
-                RestProxyFactory.createProxy(
-                        OkexFutures.class, specification.getSslUri(), getClientConfig());
+  /**
+   * Constructor
+   *
+   * @param exchange
+   */
+  protected OkexBaseTradeService(OkexExchange exchange) {
+    super(exchange);
+    ExchangeSpecification specification = exchange.getExchangeSpecification();
+    okexFutures =
+        RestProxyFactory.createProxy(
+            OkexFutures.class, specification.getSslUri(), getClientConfig());
+  }
+
+  protected static <T extends OkexTradeResult> T returnOrThrow(T t) {
+    if (t.isResult()) {
+      return t;
+    } else {
+      throw new ExchangeException(t.getErrorCode() + " " + t.getErrorMessage());
     }
-
-    protected static <T extends OkexTradeResult> T returnOrThrow(T t) {
-        if (t.isResult()) {
-            return t;
-        } else {
-            throw new ExchangeException(t.getErrorCode() + " " + t.getErrorMessage());
-        }
-    }
-
+  }
 }
