@@ -1,6 +1,8 @@
 package org.knowm.xchange.okex.v3.service;
 
 import java.io.IOException;
+
+import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.exceptions.NotAvailableFromExchangeException;
@@ -14,6 +16,8 @@ import org.knowm.xchange.service.trade.TradeService;
 
 public class OkexFuturesTradeService extends OkexFuturesTradeServiceRaw implements TradeService {
 
+  private CurrencyPair currencyPair;
+
   private final OkexFuturesPrompt futuresPrompt;
 
   private final int futuresLeverage;
@@ -22,14 +26,15 @@ public class OkexFuturesTradeService extends OkexFuturesTradeServiceRaw implemen
 
   /**
    * Constructor
-   *
-   * @param exchange
+   *  @param exchange
+   * @param currencyPair
    * @param futuresPrompt
    * @param futuresLeverage
    */
   public OkexFuturesTradeService(
-      OkexExchange exchange, OkexFuturesPrompt futuresPrompt, int futuresLeverage) {
+      OkexExchange exchange, CurrencyPair currencyPair, OkexFuturesPrompt futuresPrompt, int futuresLeverage) {
     super(exchange);
+    this.currencyPair = currencyPair;
     this.futuresPrompt = futuresPrompt;
     this.futuresLeverage = futuresLeverage;
   }
@@ -47,10 +52,13 @@ public class OkexFuturesTradeService extends OkexFuturesTradeServiceRaw implemen
    *     requested function or data, but it has not yet been implemented
    * @throws IOException - Indication that a networking error occurred while fetching JSON data
    */
+  @Override
   public String placeLimitOrder(LimitOrder limitOrder) throws IOException {
     if (instrumentId == null) {
-      instrumentId =
-          exchange.determineFuturesInstrumentId(limitOrder.getCurrencyPair(), futuresPrompt);
+      if (currencyPair == null) {
+        currencyPair = limitOrder.getCurrencyPair();
+      }
+      instrumentId = exchange.determineFuturesInstrumentId(currencyPair, futuresPrompt);
     }
     OkexFuturesOrder futuresOrder = new OkexFuturesOrder();
     futuresOrder.setInstrumentId(instrumentId);
@@ -61,4 +69,14 @@ public class OkexFuturesTradeService extends OkexFuturesTradeServiceRaw implemen
     OkexFuturesOrderResult result = placeFuturesOrder(futuresOrder);
     return result.getOrderId();
   }
+
+  @Override
+  public boolean cancelOrder(String orderId) {
+    if (instrumentId == null) {
+      instrumentId = exchange.determineFuturesInstrumentId(currencyPair, futuresPrompt);
+    }
+    cancelFuturesOrder(instrumentId, orderId);
+    return true;
+  }
+
 }

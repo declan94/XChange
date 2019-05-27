@@ -23,7 +23,9 @@ public class OkexDigest extends BaseParamsDigest implements ParamsDigest {
     if (restInvocation.getQueryString() != null && !restInvocation.getQueryString().isEmpty()) {
       messageBuilder.append("?").append(restInvocation.getQueryString());
     }
-    messageBuilder.append(restInvocation.getRequestBody());
+    if (restInvocation.getRequestBody() != null) {
+      messageBuilder.append(restInvocation.getRequestBody());
+    }
     return Base64.getEncoder()
         .encodeToString(getMac().doFinal(messageBuilder.toString().getBytes()));
   }

@@ -16,9 +16,17 @@ public class OkexFuturesTradeServiceRaw extends OkexBaseTradeService {
   }
 
   public OkexFuturesOrderResult placeFuturesOrder(OkexFuturesOrder order) {
-    OkexFuturesOrderResult result =
-        okexFutures.placeFuturesOrder(
-            order, apiKey, apiPassphrase, timestampNonceFactory, okexDigest);
+    OkexFuturesOrderResult result = okexFutures.placeFuturesOrder(
+            order, apiKey, apiPassphrase, timestampNonceFactory, okexDigest
+    );
     return returnOrThrow(result);
   }
+
+  public OkexFuturesOrderResult cancelFuturesOrder(String instrumentId, String orderId) {
+    OkexFuturesOrderResult result = okexFutures.cancelFuturesOrder(
+        instrumentId, orderId, apiKey, apiPassphrase, timestampNonceFactory, okexDigest
+    );
+    return returnOrThrow(result);
+  }
+
 }
