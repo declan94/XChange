@@ -26,9 +26,9 @@ public class OkexPlaceLimitOrderExample {
         "Futures_Contract", OkexFuturesPrompt.Quarter);
     defaultExchangeSpecification.setExchangeSpecificParametersItem("Futures_Leverage", 20);
 
-    defaultExchangeSpecification.setApiKey("xxxx");
-    defaultExchangeSpecification.setSecretKey("xxxx");
-    defaultExchangeSpecification.setExchangeSpecificParametersItem("Passphrase", "xxxx");
+    defaultExchangeSpecification.setApiKey("xxx");
+    defaultExchangeSpecification.setSecretKey("xxx");
+    defaultExchangeSpecification.setExchangeSpecificParametersItem("Passphrase", "xxx");
 
     defaultExchangeSpecification.setProxyHost("127.0.0.1");
     defaultExchangeSpecification.setProxyPort(1087);
@@ -37,7 +37,7 @@ public class OkexPlaceLimitOrderExample {
     TradeService tradeService = exchange.getTradeService();
 
     String nosOrdId = System.currentTimeMillis() + "";
-    BigDecimal originalOrderSize = new BigDecimal("30");
+    BigDecimal originalOrderSize = new BigDecimal("5");
     //    BigDecimal price = new BigDecimal("10000");
     LimitOrder limitOrder =
         new LimitOrder(
@@ -46,8 +46,10 @@ public class OkexPlaceLimitOrderExample {
             CurrencyPair.BTC_USD,
             nosOrdId,
             new Date(),
-            new BigDecimal(8100));
+            new BigDecimal(9100));
     String orderId = tradeService.placeLimitOrder(limitOrder);
     System.out.println("orderid: " + orderId);
+
+    tradeService.cancelOrder(orderId);
   }
 }
