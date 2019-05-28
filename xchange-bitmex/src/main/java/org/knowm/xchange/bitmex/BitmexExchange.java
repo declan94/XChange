@@ -1,8 +1,5 @@
 package org.knowm.xchange.bitmex;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.*;
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeSpecification;
@@ -19,6 +16,10 @@ import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.utils.nonce.ExpirationTimeFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class BitmexExchange extends BaseExchange implements Exchange {
 
@@ -163,9 +164,18 @@ public class BitmexExchange extends BaseExchange implements Exchange {
 
     final String symbols = baseSymbol + "/" + counterSymbol;
 
-    BitmexTickerList tickerList =
-        ((BitmexMarketDataServiceRaw) marketDataService)
-            .getTicker(baseSymbol + ":" + contractTimeframe);
+    BitmexMarketDataServiceRaw bitmexMarketDataServiceRaw = (BitmexMarketDataServiceRaw) marketDataService;
+
+    BitmexTickerList tickerList = bitmexMarketDataServiceRaw.getTicker(baseSymbol + ":" + contractTimeframe);
+
+    if (tickerList.size() == 0) {
+      if (contractTimeframe == BitmexPrompt.QUARTERLY) {
+        tickerList = bitmexMarketDataServiceRaw.getTicker(baseSymbol + ":" + BitmexPrompt.MONTHLY);
+        if (tickerList.size() == 0) {
+          tickerList = bitmexMarketDataServiceRaw.getTicker(baseSymbol + ":" + BitmexPrompt.WEEKLY);
+        }
+      }
+    }
 
     String bitmexSymbol =
         tickerList.stream()
