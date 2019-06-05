@@ -5,34 +5,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class HbdmContractAccount {
 
   @JsonProperty("symbol")
-  public String symbol;
+  private String symbol;
 
   @JsonProperty("margin_balance")
-  public int marginBalance;
+  private int marginBalance;
 
   @JsonProperty("margin_position")
-  public int marginPosition;
+  private int marginPosition;
 
   @JsonProperty("margin_frozen")
-  public float marginFrozen;
+  private float marginFrozen;
 
   @JsonProperty("margin_available")
-  public float marginAvailable;
+  private float marginAvailable;
 
   @JsonProperty("profit_real")
-  public float profitReal;
+  private float profitReal;
 
   @JsonProperty("profit_unreal")
-  public float profitUnreal;
+  private float profitUnreal;
 
   @JsonProperty("withdraw_available")
-  public float withdrawAvailable;
+  private float withdrawAvailable;
 
   @JsonProperty("risk_rate")
-  public int riskRate;
+  private int riskRate;
 
   @JsonProperty("liquidation_price")
-  public int liquidationPrice;
+  private int liquidationPrice;
 
 
   public String getSymbol() {
