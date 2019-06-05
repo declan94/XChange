@@ -1,4 +1,4 @@
-package org.knowm.xchange.hbdm.dto.service;
+package org.knowm.xchange.hbdm.service;
 
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.hbdm.Hbdm;
@@ -11,12 +11,12 @@ import si.mazi.rescu.RestProxyFactory;
 
 public class HbdmBaseService extends BaseExchangeService<HbdmExchange> implements BaseService {
 
-  protected Hbdm huobi;
+  protected Hbdm hbdm;
   protected ParamsDigest signatureCreator;
 
   public HbdmBaseService(HbdmExchange exchange) {
     super(exchange);
-    huobi =
+    hbdm =
         RestProxyFactory.createProxy(
             Hbdm.class, exchange.getExchangeSpecification().getSslUri(), getClientConfig());
     signatureCreator =

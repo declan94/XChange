@@ -1,4 +1,4 @@
-package org.knowm.xchange.hbdm.dto.service;
+package org.knowm.xchange.hbdm.service;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;

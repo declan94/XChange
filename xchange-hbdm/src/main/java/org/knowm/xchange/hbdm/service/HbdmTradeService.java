@@ -1,4 +1,4 @@
-package org.knowm.xchange.hbdm.dto.service;
+package org.knowm.xchange.hbdm.service;
 
 import org.knowm.xchange.hbdm.HbdmExchange;
 import org.knowm.xchange.service.trade.TradeService;

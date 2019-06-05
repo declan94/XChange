@@ -4,9 +4,9 @@ import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.exceptions.ExchangeException;
-import org.knowm.xchange.hbdm.dto.service.HbdmAccountService;
-import org.knowm.xchange.hbdm.dto.service.HbdmMarketDataService;
-import org.knowm.xchange.hbdm.dto.service.HbdmTradeService;
+import org.knowm.xchange.hbdm.service.HbdmAccountService;
+import org.knowm.xchange.hbdm.service.HbdmMarketDataService;
+import org.knowm.xchange.hbdm.service.HbdmTradeService;
 import org.knowm.xchange.utils.nonce.CurrentTimeNonceFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
 
