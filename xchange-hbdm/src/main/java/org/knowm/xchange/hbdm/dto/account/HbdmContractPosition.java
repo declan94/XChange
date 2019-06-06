@@ -20,31 +20,31 @@ public class HbdmContractPosition {
   private String contractType;
 
   @JsonProperty("volume")
-  private int volume;
+  private long volume;
 
   @JsonProperty("available")
-  private int available;
+  private double available;
 
   @JsonProperty("frozen")
-  private float frozen;
+  private double frozen;
 
   @JsonProperty("cost_open")
-  private float costOpen;
+  private double costOpen;
 
   @JsonProperty("cost_hold")
-  private float costHold;
+  private double costHold;
 
   @JsonProperty("profit_unreal")
-  private float profitUnreal;
+  private double profitUnreal;
 
   @JsonProperty("profit_rate")
-  private float profitRate;
+  private double profitRate;
 
   @JsonProperty("profit")
-  private float profit;
+  private double profit;
 
   @JsonProperty("position_margin")
-  private float positionMargin;
+  private double positionMargin;
 
   @JsonProperty("lever_rate")
   private int leverRate;
@@ -53,125 +53,65 @@ public class HbdmContractPosition {
   private String direction;
 
   @JsonProperty("last_price")
-  private float lastPrice;
+  private double lastPrice;
 
   public String getSymbol() {
     return symbol;
-  }
-
-  public void setSymbol(String symbol) {
-    this.symbol = symbol;
   }
 
   public String getContractCode() {
     return contractCode;
   }
 
-  public void setContractCode(String contractCode) {
-    this.contractCode = contractCode;
-  }
-
   public String getContractType() {
     return contractType;
   }
 
-  public void setContractType(String contractType) {
-    this.contractType = contractType;
-  }
-
-  public int getVolume() {
+  public long getVolume() {
     return volume;
   }
 
-  public void setVolume(int volume) {
-    this.volume = volume;
-  }
-
-  public int getAvailable() {
+  public double getAvailable() {
     return available;
   }
 
-  public void setAvailable(int available) {
-    this.available = available;
-  }
-
-  public float getFrozen() {
+  public double getFrozen() {
     return frozen;
   }
 
-  public void setFrozen(float frozen) {
-    this.frozen = frozen;
-  }
-
-  public float getCostOpen() {
+  public double getCostOpen() {
     return costOpen;
   }
 
-  public void setCostOpen(float costOpen) {
-    this.costOpen = costOpen;
-  }
-
-  public float getCostHold() {
+  public double getCostHold() {
     return costHold;
   }
 
-  public void setCostHold(float costHold) {
-    this.costHold = costHold;
-  }
-
-  public float getProfitUnreal() {
+  public double getProfitUnreal() {
     return profitUnreal;
   }
 
-  public void setProfitUnreal(float profitUnreal) {
-    this.profitUnreal = profitUnreal;
-  }
-
-  public float getProfitRate() {
+  public double getProfitRate() {
     return profitRate;
   }
 
-  public void setProfitRate(float profitRate) {
-    this.profitRate = profitRate;
-  }
-
-  public float getProfit() {
+  public double getProfit() {
     return profit;
   }
 
-  public void setProfit(float profit) {
-    this.profit = profit;
-  }
-
-  public float getPositionMargin() {
+  public double getPositionMargin() {
     return positionMargin;
-  }
-
-  public void setPositionMargin(float positionMargin) {
-    this.positionMargin = positionMargin;
   }
 
   public int getLeverRate() {
     return leverRate;
   }
 
-  public void setLeverRate(int leverRate) {
-    this.leverRate = leverRate;
-  }
-
   public String getDirection() {
     return direction;
   }
 
-  public void setDirection(String direction) {
-    this.direction = direction;
-  }
-
-  public float getLastPrice() {
+  public double getLastPrice() {
     return lastPrice;
-  }
-
-  public void setLastPrice(float lastPrice) {
-    this.lastPrice = lastPrice;
   }
 }
