@@ -19,7 +19,7 @@ public class HbdmExchange extends BaseExchange implements Exchange {
   @Override
   protected void initServices() {
     this.marketDataService = new HbdmMarketDataService(this);
-    this.tradeService = new HbdmTradeService(this);
+    this.tradeService = new HbdmTradeService(this, getContractType(), getLeverRate());
     this.accountService = new HbdmAccountService(this);
   }
 
@@ -31,6 +31,8 @@ public class HbdmExchange extends BaseExchange implements Exchange {
     exchangeSpecification.setHost("api.hbdm.com");
     exchangeSpecification.setPort(80);
     exchangeSpecification.setExchangeName("HBDM");
+    exchangeSpecification.setExchangeSpecificParametersItem("contract_type", HbdmPrompt.THIS_WEEK);
+    exchangeSpecification.setExchangeSpecificParametersItem("lever_rate", 20);
     exchangeSpecification.setExchangeDescription(
         "Huobi DM, the digital asset derivative trading platform of Huobi.");
     return exchangeSpecification;
@@ -45,5 +47,31 @@ public class HbdmExchange extends BaseExchange implements Exchange {
   public void remoteInit() throws IOException, ExchangeException {
 
   }
+
+  private HbdmPrompt getContractType() {
+    Object contractType = exchangeSpecification.getExchangeSpecificParametersItem("contract_type");
+    if (contractType == null) {
+      throw new ExchangeException("contract_type not specified!");
+    }
+    if (contractType instanceof String) {
+      return HbdmPrompt.valueOf(((String) contractType).toUpperCase());
+    } else {
+      return (HbdmPrompt) contractType;
+    }
+  }
+
+  private int getLeverRate() {
+    Object leverRate = exchangeSpecification.getExchangeSpecificParametersItem("lever_rate");
+    if (leverRate == null) {
+      throw new ExchangeException("lever_rate not specified!");
+    }
+    if (leverRate instanceof String) {
+      return Integer.parseInt((String) leverRate);
+    } else {
+      return (int) leverRate;
+    }
+  }
+
+
 
 }
