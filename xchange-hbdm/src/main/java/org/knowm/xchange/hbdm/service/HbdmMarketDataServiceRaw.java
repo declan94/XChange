@@ -14,7 +14,9 @@ public class HbdmMarketDataServiceRaw extends HbdmBaseService {
   }
 
   public ContractInfo[] getContractInfo(String symbol, HbdmPrompt contractType, String contractCode) throws IOException {
-    HbdmResult<ContractInfo[]> result = hbdm.getContractInfo(symbol, contractType.toString(), contractCode);
+    HbdmResult<ContractInfo[]> result = hbdm.getContractInfo(symbol,
+        contractType == null ? null : contractType.toString(),
+        contractCode);
     return checkResult(result);
   }
 

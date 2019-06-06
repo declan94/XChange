@@ -13,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Map;
 
+@Path("/")
+@Produces(MediaType.APPLICATION_JSON)
 public interface Hbdm {
 
   @GET
