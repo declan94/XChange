@@ -5,14 +5,10 @@ import org.junit.Test;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.hbdm.dto.market.ContractInfo;
 import org.knowm.xchange.hbdm.service.HbdmMarketDataService;
-import org.knowm.xchange.service.marketdata.MarketDataService;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,9 +19,10 @@ public class HbdmPublicApiIntegration {
   @Before
   public void setup() {
     exchange = ExchangeFactory.INSTANCE.createExchange(HbdmExchange.class.getName());
+    HbdmTestProperties testProps = new HbdmTestProperties();
     ExchangeSpecification specification = exchange.getDefaultExchangeSpecification();
-    specification.setProxyHost("127.0.0.1");
-    specification.setProxyPort(1087);
+    specification.setProxyHost(testProps.getProxyHost());
+    specification.setProxyPort(testProps.getProxyPort());
   }
 
   @Test
@@ -39,7 +36,6 @@ public class HbdmPublicApiIntegration {
     assertThat(contracts).isNotNull();
     assertThat(contracts.length).isGreaterThan(0);
     assertThat(contracts[0].getContractType()).isEqualTo("this_week");
-
   }
 
 }
