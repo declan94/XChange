@@ -62,15 +62,6 @@ public class HbdmPrivateApiIntegration {
 
   @Test
   @Ignore("Use it for manual")
-  public void getOpenOrdersTest() throws IOException {
-    TradeService tradeService = exchange.getTradeService();
-    OpenOrders openOrders = tradeService.getOpenOrders();
-    System.out.println(openOrders.toString());
-    assertThat(openOrders).isNotNull();
-  }
-
-  @Test
-  @Ignore("Use it for manual")
   public void getOrderTest() throws IOException {
     TradeService tradeService = exchange.getTradeService();
     Collection<Order> orders = tradeService.getOrder("2132866355");
@@ -84,12 +75,12 @@ public class HbdmPrivateApiIntegration {
     TradeService tradeService = exchange.getTradeService();
     LimitOrder limitOrder =
         new LimitOrder(
-            OrderType.ASK,
+            OrderType.EXIT_ASK,
             new BigDecimal("1"),
             new CurrencyPair("BTC", "USD"),
             null,
             null,
-            new BigDecimal("8000"));
+            new BigDecimal("7800"));
     String orderId = tradeService.placeLimitOrder(limitOrder);
     System.out.println(orderId);
   }
@@ -98,7 +89,7 @@ public class HbdmPrivateApiIntegration {
   @Ignore("Use it for manual")
   public void cancelOrderTest() throws IOException {
     HbdmTradeServiceRaw tradeService = (HbdmTradeServiceRaw) exchange.getTradeService();
-    HbdmCancelOrderResponse response = tradeService.cancelHbdmOrder("BTC", "2715696526");
+    HbdmCancelOrderResponse response = tradeService.cancelHbdmOrder("BTC", "2715696530");
     System.out.println(response.getSuccess());
     System.out.println(response.getErrors());
   }
