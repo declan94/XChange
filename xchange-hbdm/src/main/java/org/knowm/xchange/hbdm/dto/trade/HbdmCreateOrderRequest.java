@@ -1,9 +1,8 @@
 package org.knowm.xchange.hbdm.dto.trade;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.knowm.xchange.hbdm.HbdmPrompt;
-
 import java.math.BigDecimal;
+import org.knowm.xchange.hbdm.HbdmPrompt;
 
 public class HbdmCreateOrderRequest {
 
@@ -51,8 +50,15 @@ public class HbdmCreateOrderRequest {
   @JsonProperty("order_price_type")
   private String orderPriceType;
 
-
-  public HbdmCreateOrderRequest(String symbol, HbdmPrompt contractType, BigDecimal price, long volume, String direction, String offset, int leverRate, String orderPriceType) {
+  public HbdmCreateOrderRequest(
+      String symbol,
+      HbdmPrompt contractType,
+      BigDecimal price,
+      long volume,
+      String direction,
+      String offset,
+      int leverRate,
+      String orderPriceType) {
     this.symbol = symbol;
     this.contractType = contractType;
     this.price = price;
@@ -142,5 +148,4 @@ public class HbdmCreateOrderRequest {
   public void setOrderPriceType(String orderPriceType) {
     this.orderPriceType = orderPriceType;
   }
-
 }

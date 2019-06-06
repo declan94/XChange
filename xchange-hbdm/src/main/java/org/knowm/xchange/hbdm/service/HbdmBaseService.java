@@ -34,5 +34,4 @@ public class HbdmBaseService extends BaseExchangeService<HbdmExchange> implement
     }
     return huobiResult.getResult();
   }
-
 }

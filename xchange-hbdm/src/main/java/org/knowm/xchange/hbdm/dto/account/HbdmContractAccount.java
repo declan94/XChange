@@ -34,7 +34,6 @@ public class HbdmContractAccount {
   @JsonProperty("liquidation_price")
   private int liquidationPrice;
 
-
   public String getSymbol() {
     return symbol;
   }
@@ -74,5 +73,4 @@ public class HbdmContractAccount {
   public int getLiquidationPrice() {
     return liquidationPrice;
   }
-
 }

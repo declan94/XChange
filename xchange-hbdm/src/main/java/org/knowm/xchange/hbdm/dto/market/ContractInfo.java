@@ -6,18 +6,25 @@ public class ContractInfo {
 
   @JsonProperty("symbol")
   private String symbol;
+
   @JsonProperty("contract_code")
   private String contractCode;
+
   @JsonProperty("contract_type")
   private String contractType;
+
   @JsonProperty("contract_size")
   private int contractSize;
+
   @JsonProperty("price_tick")
   private float priceTick;
+
   @JsonProperty("delivery_date")
   private String deliveryDate;
+
   @JsonProperty("create_date")
   private String createDate;
+
   @JsonProperty("contract_status")
   private int contractStatus;
 
@@ -52,5 +59,4 @@ public class ContractInfo {
   public int getContractStatus() {
     return contractStatus;
   }
-
 }

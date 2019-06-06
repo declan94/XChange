@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class HbdmContractPosition {
 
+  public static final String DIRECTION_BUY = "buy";
+
+  public static final String DIRECTION_SELL = "sell";
+
   @JsonProperty("symbol")
   private String symbol;
 
@@ -170,5 +174,4 @@ public class HbdmContractPosition {
   public void setLastPrice(float lastPrice) {
     this.lastPrice = lastPrice;
   }
-
 }

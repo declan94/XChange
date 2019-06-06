@@ -43,8 +43,8 @@ public class HbdmDigest extends BaseParamsDigest {
     String method = "/" + restInvocation.getMethodPath();
     String query =
         Stream.of(
-            restInvocation.getParamsMap().get(FormParam.class),
-            restInvocation.getParamsMap().get(QueryParam.class))
+                restInvocation.getParamsMap().get(FormParam.class),
+                restInvocation.getParamsMap().get(QueryParam.class))
             .map(Params::asHttpHeaders)
             .map(Map::entrySet)
             .flatMap(Collection::stream)
