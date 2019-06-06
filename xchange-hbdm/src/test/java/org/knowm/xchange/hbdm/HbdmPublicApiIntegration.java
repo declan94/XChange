@@ -23,6 +23,7 @@ public class HbdmPublicApiIntegration {
     ExchangeSpecification specification = exchange.getDefaultExchangeSpecification();
     specification.setProxyHost(testProps.getProxyHost());
     specification.setProxyPort(testProps.getProxyPort());
+    exchange.applySpecification(specification);
   }
 
   @Test
