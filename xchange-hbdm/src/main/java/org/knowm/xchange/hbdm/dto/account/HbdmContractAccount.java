@@ -8,61 +8,61 @@ public class HbdmContractAccount {
   private String symbol;
 
   @JsonProperty("margin_balance")
-  private int marginBalance;
+  private double marginBalance;
 
   @JsonProperty("margin_position")
-  private int marginPosition;
+  private double marginPosition;
 
   @JsonProperty("margin_frozen")
-  private float marginFrozen;
+  private double marginFrozen;
 
   @JsonProperty("margin_available")
-  private float marginAvailable;
+  private double marginAvailable;
 
   @JsonProperty("profit_real")
-  private float profitReal;
+  private double profitReal;
 
   @JsonProperty("profit_unreal")
-  private float profitUnreal;
+  private double profitUnreal;
 
   @JsonProperty("withdraw_available")
-  private float withdrawAvailable;
+  private double withdrawAvailable;
 
   @JsonProperty("risk_rate")
   private int riskRate;
 
   @JsonProperty("liquidation_price")
-  private int liquidationPrice;
+  private double liquidationPrice;
 
   public String getSymbol() {
     return symbol;
   }
 
-  public int getMarginBalance() {
+  public double getMarginBalance() {
     return marginBalance;
   }
 
-  public int getMarginPosition() {
+  public double getMarginPosition() {
     return marginPosition;
   }
 
-  public float getMarginFrozen() {
+  public double getMarginFrozen() {
     return marginFrozen;
   }
 
-  public float getMarginAvailable() {
+  public double getMarginAvailable() {
     return marginAvailable;
   }
 
-  public float getProfitReal() {
+  public double getProfitReal() {
     return profitReal;
   }
 
-  public float getProfitUnreal() {
+  public double getProfitUnreal() {
     return profitUnreal;
   }
 
-  public float getWithdrawAvailable() {
+  public double getWithdrawAvailable() {
     return withdrawAvailable;
   }
 
@@ -70,7 +70,7 @@ public class HbdmContractAccount {
     return riskRate;
   }
 
-  public int getLiquidationPrice() {
+  public double getLiquidationPrice() {
     return liquidationPrice;
   }
 }
