@@ -71,11 +71,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>hetang_upload</id>
-            <url>http://repo.maven.fqt.fund/repository/hetang/</url>
+            <url>http://repo.maven.fquant.fund/repository/hetang/</url>
         </snapshotRepository>
         <repository>
             <id>hetang_upload</id>
-            <url>http://repo.maven.fqt.fund/repository/hetang_release/</url>
+            <url>http://repo.maven.fquant.fund/repository/hetang_release/</url>
         </repository>
     </distributionManagement>
 
@@ -188,6 +188,7 @@
         <module>xchange-yobit</module>
         <module>xchange-zaif</module>
         <module>xchange-okex-v3</module>
+        <module>xchange-hbdm</module>
     </modules>
 
     <repositories>

@@ -1,0 +1,6 @@
+HBDM API specification
+================================
+
+Documentation
+-------------
+https://github.com/huobiapi/API_Docs_en/wiki
