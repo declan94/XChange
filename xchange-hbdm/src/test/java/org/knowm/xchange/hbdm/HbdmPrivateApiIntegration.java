@@ -1,5 +1,11 @@
 package org.knowm.xchange.hbdm;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -17,16 +23,7 @@ import org.knowm.xchange.hbdm.dto.account.HbdmContractPosition;
 import org.knowm.xchange.hbdm.dto.trade.HbdmCancelOrderResponse;
 import org.knowm.xchange.hbdm.service.HbdmAccountService;
 import org.knowm.xchange.hbdm.service.HbdmTradeServiceRaw;
-import org.knowm.xchange.huobi.dto.account.HuobiAccount;
-import org.knowm.xchange.huobi.service.HuobiAccountService;
 import org.knowm.xchange.service.trade.TradeService;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collection;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class HbdmPrivateApiIntegration {
 
@@ -105,5 +102,4 @@ public class HbdmPrivateApiIntegration {
     System.out.println(response.getSuccess());
     System.out.println(response.getErrors());
   }
-
 }

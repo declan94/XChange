@@ -1,5 +1,6 @@
 package org.knowm.xchange.hbdm;
 
+import java.io.IOException;
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeSpecification;
@@ -9,8 +10,6 @@ import org.knowm.xchange.hbdm.service.HbdmMarketDataService;
 import org.knowm.xchange.hbdm.service.HbdmTradeService;
 import org.knowm.xchange.utils.nonce.CurrentTimeNonceFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
-
-import java.io.IOException;
 
 public class HbdmExchange extends BaseExchange implements Exchange {
 
@@ -44,9 +43,7 @@ public class HbdmExchange extends BaseExchange implements Exchange {
   }
 
   @Override
-  public void remoteInit() throws IOException, ExchangeException {
-
-  }
+  public void remoteInit() throws IOException, ExchangeException {}
 
   private HbdmPrompt getContractType() {
     Object contractType = exchangeSpecification.getExchangeSpecificParametersItem("contract_type");
@@ -71,7 +68,4 @@ public class HbdmExchange extends BaseExchange implements Exchange {
       return (int) leverRate;
     }
   }
-
-
-
 }

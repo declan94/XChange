@@ -1,8 +1,7 @@
-
 package org.knowm.xchange.hbdm.dto.trade;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-
 
 public class HbdmCancelOrderResponse {
 
@@ -10,8 +9,10 @@ public class HbdmCancelOrderResponse {
 
     @JsonProperty("order_id")
     private long orderId;
+
     @JsonProperty("err_code")
     private int errCode;
+
     @JsonProperty("err_msg")
     private String errMsg;
 
@@ -29,13 +30,16 @@ public class HbdmCancelOrderResponse {
 
     @Override
     public String toString() {
-      return "Error{" +
-          "orderId=" + orderId +
-          ", errCode=" + errCode +
-          ", errMsg='" + errMsg + '\'' +
-          '}';
+      return "Error{"
+          + "orderId="
+          + orderId
+          + ", errCode="
+          + errCode
+          + ", errMsg='"
+          + errMsg
+          + '\''
+          + '}';
     }
-
   }
 
   @JsonProperty("errors")
@@ -51,5 +55,4 @@ public class HbdmCancelOrderResponse {
   public List<Long> getSuccess() {
     return success;
   }
-
 }

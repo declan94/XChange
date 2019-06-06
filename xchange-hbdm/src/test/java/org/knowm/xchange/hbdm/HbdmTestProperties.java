@@ -43,7 +43,6 @@ class HbdmTestProperties {
       apiKey = null;
       secretKey = null;
     }
-
   }
 
   public boolean isValid() {

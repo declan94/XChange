@@ -47,7 +47,7 @@ public class HbdmResult<V> {
 
   @Override
   public String toString() {
-    return String.format("HbdmResult [%s, %s]", status, isSuccess() ? getResult().toString() : getError());
+    return String.format(
+        "HbdmResult [%s, %s]", status, isSuccess() ? getResult().toString() : getError());
   }
-
 }

@@ -8,5 +8,4 @@ public class HbdmMarketDataService extends HbdmMarketDataServiceRaw implements M
   public HbdmMarketDataService(HbdmExchange exchange) {
     super(exchange);
   }
-
 }
