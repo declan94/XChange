@@ -17,7 +17,6 @@ import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.trade.LimitOrder;
-import org.knowm.xchange.dto.trade.OpenOrders;
 import org.knowm.xchange.hbdm.dto.account.HbdmContractAccount;
 import org.knowm.xchange.hbdm.dto.account.HbdmContractPosition;
 import org.knowm.xchange.hbdm.dto.trade.HbdmCancelOrderResponse;
