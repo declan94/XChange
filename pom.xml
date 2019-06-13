@@ -9,7 +9,7 @@
 
     <groupId>org.knowm.xchange</groupId>
     <artifactId>xchange-parent</artifactId>
-    <version>4.3.19-SNAPSHOT</version>
+    <version>4.3.19</version>
     <packaging>pom</packaging>
 
     <name>XChange</name>
@@ -83,7 +83,7 @@
         <connection>scm:git:git@github.com:declan94/XChange.git</connection>
         <developerConnection>scm:git:git@github.com:declan94/XChange.git</developerConnection>
         <url>git@github.com:declan94/XChange.git</url>
-        <tag>HEAD</tag>
+        <tag>xchange-parent-4.3.19</tag>
     </scm>
 
     <ciManagement>
