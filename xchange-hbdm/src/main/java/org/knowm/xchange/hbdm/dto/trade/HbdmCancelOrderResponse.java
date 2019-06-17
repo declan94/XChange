@@ -45,14 +45,14 @@ public class HbdmCancelOrderResponse {
   @JsonProperty("errors")
   private List<Error> errors = null;
 
-  @JsonProperty("success")
-  private List<Long> success = null;
+  @JsonProperty("successes")
+  private String successes = null;
 
   public List<Error> getErrors() {
     return errors;
   }
 
-  public List<Long> getSuccess() {
-    return success;
+  public String getSuccesses() {
+    return successes;
   }
 }

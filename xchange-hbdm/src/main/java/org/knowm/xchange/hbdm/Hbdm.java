@@ -1,17 +1,20 @@
 package org.knowm.xchange.hbdm;
 
-import java.io.IOException;
-import java.util.Map;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import org.knowm.xchange.hbdm.dto.HbdmResult;
 import org.knowm.xchange.hbdm.dto.account.HbdmContractAccount;
 import org.knowm.xchange.hbdm.dto.account.HbdmContractPosition;
 import org.knowm.xchange.hbdm.dto.market.ContractInfo;
+import org.knowm.xchange.hbdm.dto.trade.HbdmBatchOrderResponse;
 import org.knowm.xchange.hbdm.dto.trade.HbdmCancelOrderResponse;
 import org.knowm.xchange.hbdm.dto.trade.HbdmCreateOrderRequest;
 import org.knowm.xchange.hbdm.dto.trade.HbdmOrderResponse;
 import si.mazi.rescu.ParamsDigest;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
@@ -54,6 +57,18 @@ public interface Hbdm {
   @Consumes(MediaType.APPLICATION_JSON)
   HbdmResult<HbdmOrderResponse> placeOrder(
       HbdmCreateOrderRequest createOrderRequest,
+      @QueryParam("AccessKeyId") String apiKey,
+      @QueryParam("SignatureMethod") String signatureMethod,
+      @QueryParam("SignatureVersion") int signatureVersion,
+      @QueryParam("Timestamp") String nonce,
+      @QueryParam("Signature") ParamsDigest signature)
+      throws IOException;
+
+  @POST
+  @Path("api/v1/contract_batchorder")
+  @Consumes(MediaType.APPLICATION_JSON)
+  HbdmResult<HbdmBatchOrderResponse> batchPlaceOrders(
+      Map<String, List<HbdmCreateOrderRequest>> createOrderRequests,
       @QueryParam("AccessKeyId") String apiKey,
       @QueryParam("SignatureMethod") String signatureMethod,
       @QueryParam("SignatureVersion") int signatureVersion,

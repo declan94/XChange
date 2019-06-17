@@ -1,9 +1,13 @@
 package org.knowm.xchange.hbdm.service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.hbdm.HbdmExchange;
 import org.knowm.xchange.hbdm.HbdmPrompt;
+import org.knowm.xchange.hbdm.dto.trade.HbdmBatchOrderResponse;
 import org.knowm.xchange.hbdm.dto.trade.HbdmCreateOrderRequest;
 import org.knowm.xchange.hbdm.dto.trade.HbdmOrderResponse;
 import org.knowm.xchange.service.trade.TradeService;
@@ -20,8 +24,7 @@ public class HbdmTradeService extends HbdmTradeServiceRaw implements TradeServic
     this.leverRate = leverRate;
   }
 
-  @Override
-  public String placeLimitOrder(LimitOrder limitOrder) throws IOException {
+  private HbdmCreateOrderRequest createLimitOrderRequest(LimitOrder limitOrder) {
     String symbol = limitOrder.getCurrencyPair().base.toString();
     String direction, offset;
     switch (limitOrder.getType()) {
@@ -53,7 +56,19 @@ public class HbdmTradeService extends HbdmTradeServiceRaw implements TradeServic
             offset,
             leverRate,
             HbdmCreateOrderRequest.ORDER_PRICE_TYPE_LIMIT);
-    HbdmOrderResponse response = placeHbdmOrder(createOrderRequest);
+    return createOrderRequest;
+  }
+
+  @Override
+  public String placeLimitOrder(LimitOrder limitOrder) throws IOException {
+    HbdmOrderResponse response = placeHbdmOrder(createLimitOrderRequest(limitOrder));
     return response.getOrderId();
   }
+
+  public HbdmBatchOrderResponse batchPlaceLimitOrders(List<LimitOrder> limitOrders) throws IOException {
+    List<HbdmCreateOrderRequest> createOrderRequests = limitOrders.stream()
+        .map(this::createLimitOrderRequest).collect(Collectors.toList());
+    return batchPlaceHbdmOrders(createOrderRequests);
+  }
+
 }
