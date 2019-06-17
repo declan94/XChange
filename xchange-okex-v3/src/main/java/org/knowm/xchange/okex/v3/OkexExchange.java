@@ -3,7 +3,6 @@ package org.knowm.xchange.okex.v3;
 import java.io.IOException;
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.ExchangeSpecification;
-import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.okex.v3.dto.marketdata.FuturesInstrument;
@@ -22,7 +21,11 @@ public class OkexExchange extends BaseExchange {
       this.marketDataService = new OkexFuturesMarketDataService(this);
       if (exchangeSpecification.getApiKey() != null) {
         this.tradeService =
-            new OkexFuturesTradeService(this, futuresCurrencyPairOfConfig(), futuresContractOfConfig(), futuresLeverageOfConfig());
+            new OkexFuturesTradeService(
+                this,
+                futuresCurrencyPairOfConfig(),
+                futuresContractOfConfig(),
+                futuresLeverageOfConfig());
       }
     } else {
 
@@ -60,7 +63,8 @@ public class OkexExchange extends BaseExchange {
 
   private CurrencyPair futuresCurrencyPairOfConfig() {
     if (exchangeSpecification.getExchangeSpecificParameters().containsKey("Futures_CurrencyPair")) {
-      return (CurrencyPair) exchangeSpecification.getExchangeSpecificParameters().get("Futures_CurrencyPair");
+      return (CurrencyPair)
+          exchangeSpecification.getExchangeSpecificParameters().get("Futures_CurrencyPair");
     }
     return null;
   }

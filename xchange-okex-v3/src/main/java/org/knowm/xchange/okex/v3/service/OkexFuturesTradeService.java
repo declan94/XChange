@@ -1,7 +1,6 @@
 package org.knowm.xchange.okex.v3.service;
 
 import java.io.IOException;
-
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.exceptions.ExchangeException;
@@ -26,13 +25,17 @@ public class OkexFuturesTradeService extends OkexFuturesTradeServiceRaw implemen
 
   /**
    * Constructor
-   *  @param exchange
+   *
+   * @param exchange
    * @param currencyPair
    * @param futuresPrompt
    * @param futuresLeverage
    */
   public OkexFuturesTradeService(
-      OkexExchange exchange, CurrencyPair currencyPair, OkexFuturesPrompt futuresPrompt, int futuresLeverage) {
+      OkexExchange exchange,
+      CurrencyPair currencyPair,
+      OkexFuturesPrompt futuresPrompt,
+      int futuresLeverage) {
     super(exchange);
     this.currencyPair = currencyPair;
     this.futuresPrompt = futuresPrompt;
@@ -78,5 +81,4 @@ public class OkexFuturesTradeService extends OkexFuturesTradeServiceRaw implemen
     cancelFuturesOrder(instrumentId, orderId);
     return true;
   }
-
 }

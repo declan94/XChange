@@ -25,8 +25,7 @@ public interface OkexFutures extends OkexAuthenticated {
       @HeaderParam(ACCESS_KEY_PARAM) String accessKey,
       @HeaderParam(ACCESS_PASSPHRASE_PARAM) String passphrase,
       @HeaderParam(ACCESS_TIMESTAMP_PARM) SynchronizedValueFactory<String> timestamp,
-      @HeaderParam(ACCESS_SIGN_PARAM) ParamsDigest sign
-  );
+      @HeaderParam(ACCESS_SIGN_PARAM) ParamsDigest sign);
 
   @POST
   @Path("cancel_order/{instrument_id}/{order_id}")
@@ -37,7 +36,5 @@ public interface OkexFutures extends OkexAuthenticated {
       @HeaderParam(ACCESS_KEY_PARAM) String accessKey,
       @HeaderParam(ACCESS_PASSPHRASE_PARAM) String passphrase,
       @HeaderParam(ACCESS_TIMESTAMP_PARM) SynchronizedValueFactory<String> timestamp,
-      @HeaderParam(ACCESS_SIGN_PARAM) ParamsDigest sign
-  );
-
+      @HeaderParam(ACCESS_SIGN_PARAM) ParamsDigest sign);
 }

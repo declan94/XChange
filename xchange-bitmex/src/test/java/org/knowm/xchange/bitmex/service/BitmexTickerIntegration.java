@@ -1,16 +1,12 @@
 package org.knowm.xchange.bitmex.service;
 
 import java.io.IOException;
-import java.util.List;
 import org.junit.Test;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.bitmex.BitmexExchange;
 import org.knowm.xchange.bitmex.BitmexPrompt;
-import org.knowm.xchange.bitmex.dto.account.BitmexTicker;
-import org.knowm.xchange.bitmex.dto.marketdata.BitmexPublicTrade;
-import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 
 public class BitmexTickerIntegration {
@@ -23,7 +19,8 @@ public class BitmexTickerIntegration {
     defaultExchangeSpecification.setProxyPort(1087);
     exchange.applySpecification(defaultExchangeSpecification);
 
-    CurrencyPair symbol = ((BitmexExchange) exchange).determineActiveContract("BTC", "USD", BitmexPrompt.QUARTERLY);
+    CurrencyPair symbol =
+        ((BitmexExchange) exchange).determineActiveContract("BTC", "USD", BitmexPrompt.QUARTERLY);
     System.out.println(symbol);
   }
 }

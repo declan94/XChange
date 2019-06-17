@@ -1,15 +1,14 @@
 package org.knowm.xchange.hbdm;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.stream.Stream;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.hbdm.dto.market.HbdmDepth;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.stream.Stream;
 
 public class HbdmAdapters {
 
@@ -30,8 +29,11 @@ public class HbdmAdapters {
   }
 
   private static LimitOrder adaptLimitOrder(
-      Order.OrderType type, BigDecimal[] data, CurrencyPair currencyPair, String id, Date timestamp) {
+      Order.OrderType type,
+      BigDecimal[] data,
+      CurrencyPair currencyPair,
+      String id,
+      Date timestamp) {
     return new LimitOrder(type, data[1], currencyPair, id, timestamp, data[0]);
   }
-
 }

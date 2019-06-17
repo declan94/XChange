@@ -1,7 +1,6 @@
 package org.knowm.xchange.hbdm.dto.market;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
@@ -41,6 +40,4 @@ public class HbdmDepth {
 
     return "HBDM Depth [asks=" + Arrays.toString(asks) + ", bids=" + Arrays.toString(bids) + "]";
   }
-
 }
-

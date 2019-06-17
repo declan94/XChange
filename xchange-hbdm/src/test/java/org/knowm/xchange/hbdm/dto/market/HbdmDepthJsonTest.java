@@ -1,13 +1,12 @@
 package org.knowm.xchange.hbdm.dto.market;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 public class HbdmDepthJsonTest {
 
@@ -16,8 +15,7 @@ public class HbdmDepthJsonTest {
 
     // Read in the JSON from the example resources
     InputStream is =
-        HbdmDepthJsonTest.class.getResourceAsStream(
-            "/org/knowm/xchange/hbdm/hbdm_depth.json");
+        HbdmDepthJsonTest.class.getResourceAsStream("/org/knowm/xchange/hbdm/hbdm_depth.json");
 
     ObjectMapper mapper = new ObjectMapper();
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -26,5 +24,4 @@ public class HbdmDepthJsonTest {
     // Verify that the example data was unmarshalled correctly
     assertThat(depth.getAsks()[0][0].doubleValue()).isEqualTo(7979);
   }
-
 }
