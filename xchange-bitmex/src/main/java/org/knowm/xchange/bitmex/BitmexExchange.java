@@ -194,4 +194,11 @@ public class BitmexExchange extends BaseExchange implements Exchange {
     String contractTypeSymbol = bitmexSymbol.substring(3, bitmexSymbol.length());
     return new CurrencyPair(baseSymbol, contractTypeSymbol);
   }
+
+  public Integer rateLimit;
+
+  public Integer rateLimitRemaining;
+
+  public Long rateLimitReset;
+
 }
