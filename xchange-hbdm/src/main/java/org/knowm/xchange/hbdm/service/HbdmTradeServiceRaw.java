@@ -30,7 +30,8 @@ public class HbdmTradeServiceRaw extends HbdmBaseService {
     return checkResult(result);
   }
 
-  public HbdmBatchOrderResponse batchPlaceHbdmOrders(List<HbdmCreateOrderRequest> orderRequests) throws IOException {
+  public HbdmBatchOrderResponse batchPlaceHbdmOrders(List<HbdmCreateOrderRequest> orderRequests)
+      throws IOException {
     Map<String, List<HbdmCreateOrderRequest>> req = new HashMap<>();
     req.put("orders_data", orderRequests);
     HbdmResult<HbdmBatchOrderResponse> result =
@@ -58,5 +59,4 @@ public class HbdmTradeServiceRaw extends HbdmBaseService {
             signatureCreator);
     return checkResult(result);
   }
-
 }
