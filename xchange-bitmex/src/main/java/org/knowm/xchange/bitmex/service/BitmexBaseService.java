@@ -19,9 +19,6 @@ public class BitmexBaseService extends BaseExchangeService<BitmexExchange> imple
 
   protected final BitmexAuthenticated bitmex;
   protected final ParamsDigest signatureCreator;
-  protected static Integer rateLimit;
-  protected static Integer rateLimitRemaining;
-  protected static Long rateLimitReset;
 
   /**
    * Constructor
@@ -59,18 +56,18 @@ public class BitmexBaseService extends BaseExchangeService<BitmexExchange> imple
 
   /** see https://www.bitmex.com/app/restAPI#Request-Rate-Limits */
   protected <T extends HttpResponseAware> T updateRateLimit(Supplier<T> httpResponseAwareSupplier) {
-    if (rateLimitReset != null) {
-      long waitMillis = rateLimitReset * 1000 - System.currentTimeMillis();
-      if (rateLimitRemaining <= 0 && waitMillis >= 0) {
+    if (exchange.rateLimitReset != null) {
+      long waitMillis = exchange.rateLimitReset * 1000 - System.currentTimeMillis();
+      if (exchange.rateLimitRemaining <= 0 && waitMillis >= 0) {
         throw new ExchangeException(
             "The request is not executed due to rate limit, please wait for "
                 + (waitMillis / 1000)
                 + " seconds, limit:"
-                + rateLimit
+                + exchange.rateLimit
                 + ", reset: "
-                + new Date(rateLimitReset * 1000));
+                + new Date(exchange.rateLimitReset * 1000));
       } else {
-        rateLimitRemaining--;
+        exchange.rateLimitRemaining--;
       }
     }
     HttpResponseAware responseAware = null;
@@ -84,15 +81,15 @@ public class BitmexBaseService extends BaseExchangeService<BitmexExchange> imple
         // we are warned !
         try {
           Integer retryAfter = Integer.valueOf(e.getResponseHeaders().get("Retry-After").get(0));
-          rateLimitRemaining = 0;
-          rateLimitReset = System.currentTimeMillis() / 1000 + retryAfter;
+          exchange.rateLimitRemaining = 0;
+          exchange.rateLimitReset = System.currentTimeMillis() / 1000 + retryAfter;
           rateLimitsUpdated = true;
         } catch (Throwable ignored) {
         }
       } else if (e.getHttpStatusCode() == 403) {
         // we are banned now !
-        rateLimitRemaining = 0;
-        rateLimitReset = System.currentTimeMillis() / 1000 + 5; // lets be quiet for 5 sec
+        exchange.rateLimitRemaining = 0;
+        exchange.rateLimitReset = System.currentTimeMillis() / 1000 + 5; // lets be quiet for 5 sec
       }
       responseAware = e;
       throw handleError(e);
@@ -101,29 +98,29 @@ public class BitmexBaseService extends BaseExchangeService<BitmexExchange> imple
     } finally {
       if (responseAware != null && !rateLimitsUpdated) {
         Map<String, List<String>> responseHeaders = responseAware.getResponseHeaders();
-        rateLimit = Integer.valueOf(responseHeaders.get("X-RateLimit-Limit").get(0));
-        rateLimitRemaining = Integer.valueOf(responseHeaders.get("X-RateLimit-Remaining").get(0));
-        rateLimitReset = Long.valueOf(responseHeaders.get("X-RateLimit-Reset").get(0));
+        exchange.rateLimit = Integer.valueOf(responseHeaders.get("X-RateLimit-Limit").get(0));
+        exchange.rateLimitRemaining = Integer.valueOf(responseHeaders.get("X-RateLimit-Remaining").get(0));
+        exchange.rateLimitReset = Long.valueOf(responseHeaders.get("X-RateLimit-Reset").get(0));
         rateLimitsUpdated = true;
       }
       if (rateLimitsUpdated) {
         RateLimitUpdateListener rateLimitUpdateListener = exchange.getRateLimitUpdateListener();
         if (rateLimitUpdateListener != null) {
-          rateLimitUpdateListener.rateLimitUpdate(rateLimit, rateLimitRemaining, rateLimitReset);
+          rateLimitUpdateListener.rateLimitUpdate(exchange.rateLimit, exchange.rateLimitRemaining, exchange.rateLimitReset);
         }
       }
     }
   }
 
   public int getRateLimit() {
-    return rateLimit;
+    return exchange.rateLimit;
   }
 
   public int getRateLimitRemaining() {
-    return rateLimitRemaining;
+    return exchange.rateLimitRemaining;
   }
 
   public long getRateLimitReset() {
-    return rateLimitReset;
+    return exchange.rateLimitReset;
   }
 }
