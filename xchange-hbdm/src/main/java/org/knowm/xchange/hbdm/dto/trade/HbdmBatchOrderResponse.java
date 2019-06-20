@@ -1,7 +1,6 @@
 package org.knowm.xchange.hbdm.dto.trade;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class HbdmBatchOrderResponse {
@@ -31,11 +30,15 @@ public class HbdmBatchOrderResponse {
 
     @Override
     public String toString() {
-      return "Error{" +
-          "index=" + index +
-          ", errCode=" + errCode +
-          ", errMsg='" + errMsg + '\'' +
-          '}';
+      return "Error{"
+          + "index="
+          + index
+          + ", errCode="
+          + errCode
+          + ", errMsg='"
+          + errMsg
+          + '\''
+          + '}';
     }
   }
 
@@ -64,11 +67,14 @@ public class HbdmBatchOrderResponse {
 
     @Override
     public String toString() {
-      return "Success{" +
-          "index=" + index +
-          ", orderId=" + orderId +
-          ", clientOrderId=" + clientOrderId +
-          '}';
+      return "Success{"
+          + "index="
+          + index
+          + ", orderId="
+          + orderId
+          + ", clientOrderId="
+          + clientOrderId
+          + '}';
     }
   }
 
@@ -100,10 +106,6 @@ public class HbdmBatchOrderResponse {
 
   @Override
   public String toString() {
-    return "HbdmBatchOrderResponse{" +
-        "errors=" + errors +
-        ", success=" + success +
-        '}';
+    return "HbdmBatchOrderResponse{" + "errors=" + errors + ", success=" + success + '}';
   }
-
 }
