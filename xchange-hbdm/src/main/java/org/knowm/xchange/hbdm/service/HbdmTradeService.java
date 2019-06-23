@@ -3,7 +3,6 @@ package org.knowm.xchange.hbdm.service;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.hbdm.HbdmExchange;
 import org.knowm.xchange.hbdm.HbdmPrompt;
@@ -65,10 +64,10 @@ public class HbdmTradeService extends HbdmTradeServiceRaw implements TradeServic
     return response.getOrderId();
   }
 
-  public HbdmBatchOrderResponse batchPlaceLimitOrders(List<LimitOrder> limitOrders) throws IOException {
-    List<HbdmCreateOrderRequest> createOrderRequests = limitOrders.stream()
-        .map(this::createLimitOrderRequest).collect(Collectors.toList());
+  public HbdmBatchOrderResponse batchPlaceLimitOrders(List<LimitOrder> limitOrders)
+      throws IOException {
+    List<HbdmCreateOrderRequest> createOrderRequests =
+        limitOrders.stream().map(this::createLimitOrderRequest).collect(Collectors.toList());
     return batchPlaceHbdmOrders(createOrderRequests);
   }
-
 }

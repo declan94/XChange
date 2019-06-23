@@ -1,5 +1,10 @@
 package org.knowm.xchange.hbdm;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import org.knowm.xchange.hbdm.dto.HbdmResult;
 import org.knowm.xchange.hbdm.dto.account.HbdmContractAccount;
 import org.knowm.xchange.hbdm.dto.account.HbdmContractPosition;
@@ -9,12 +14,6 @@ import org.knowm.xchange.hbdm.dto.trade.HbdmCancelOrderResponse;
 import org.knowm.xchange.hbdm.dto.trade.HbdmCreateOrderRequest;
 import org.knowm.xchange.hbdm.dto.trade.HbdmOrderResponse;
 import si.mazi.rescu.ParamsDigest;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
