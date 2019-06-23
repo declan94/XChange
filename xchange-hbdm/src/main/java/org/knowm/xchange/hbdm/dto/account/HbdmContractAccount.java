@@ -29,7 +29,7 @@ public class HbdmContractAccount {
   private double withdrawAvailable;
 
   @JsonProperty("risk_rate")
-  private int riskRate;
+  private double riskRate;
 
   @JsonProperty("liquidation_price")
   private double liquidationPrice;
@@ -66,7 +66,7 @@ public class HbdmContractAccount {
     return withdrawAvailable;
   }
 
-  public int getRiskRate() {
+  public double getRiskRate() {
     return riskRate;
   }
 
