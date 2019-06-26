@@ -55,4 +55,12 @@ public class HbdmCancelOrderResponse {
   public String getSuccesses() {
     return successes;
   }
+
+  @Override
+  public String toString() {
+    return "HbdmCancelOrderResponse{" +
+            "errors=" + errors +
+            ", successes='" + successes + '\'' +
+            '}';
+  }
 }

@@ -22,4 +22,12 @@ public class HbdmOrderResponse {
   public String getClientOrderId() {
     return clientOrderId;
   }
+
+  @Override
+  public String toString() {
+    return "HbdmOrderResponse{" +
+            "orderId='" + orderId + '\'' +
+            ", clientOrderId='" + clientOrderId + '\'' +
+            '}';
+  }
 }
