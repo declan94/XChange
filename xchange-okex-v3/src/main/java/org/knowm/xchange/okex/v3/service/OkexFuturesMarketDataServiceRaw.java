@@ -1,5 +1,6 @@
 package org.knowm.xchange.okex.v3.service;
 
+import java.io.IOException;
 import org.knowm.xchange.okex.v3.OkexExchange;
 import org.knowm.xchange.okex.v3.OkexFutures;
 import org.knowm.xchange.okex.v3.dto.marketdata.FuturesInstrument;
@@ -16,7 +17,7 @@ public class OkexFuturesMarketDataServiceRaw extends OkexBaseService {
             OkexFutures.class, exchange.getExchangeSpecification().getSslUri(), getClientConfig());
   }
 
-  public FuturesInstrument[] getInstruments() {
+  public FuturesInstrument[] getInstruments() throws IOException {
     return okexFutures.getInstruments();
   }
 }

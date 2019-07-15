@@ -30,5 +30,4 @@ public class OkexException extends HttpStatusExceptionSupport {
   public void setMessage(String message) {
     this.message = message;
   }
-
 }
