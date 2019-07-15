@@ -200,5 +200,4 @@ public class BitmexExchange extends BaseExchange implements Exchange {
   public Integer rateLimitRemaining;
 
   public Long rateLimitReset;
-
 }

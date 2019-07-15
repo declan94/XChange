@@ -10,12 +10,16 @@ import org.knowm.xchange.bitmex.RateLimitUpdateListener;
 import org.knowm.xchange.exceptions.*;
 import org.knowm.xchange.service.BaseExchangeService;
 import org.knowm.xchange.service.BaseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import si.mazi.rescu.HttpResponseAware;
 import si.mazi.rescu.ParamsDigest;
 import si.mazi.rescu.RestProxyFactory;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class BitmexBaseService extends BaseExchangeService<BitmexExchange> implements BaseService {
+
+  private static final Logger LOG = LoggerFactory.getLogger(BitmexBaseService.class);
 
   protected final BitmexAuthenticated bitmex;
   protected final ParamsDigest signatureCreator;
@@ -97,16 +101,22 @@ public class BitmexBaseService extends BaseExchangeService<BitmexExchange> imple
       throw handleError(e);
     } finally {
       if (responseAware != null && !rateLimitsUpdated) {
-        Map<String, List<String>> responseHeaders = responseAware.getResponseHeaders();
-        exchange.rateLimit = Integer.valueOf(responseHeaders.get("X-RateLimit-Limit").get(0));
-        exchange.rateLimitRemaining = Integer.valueOf(responseHeaders.get("X-RateLimit-Remaining").get(0));
-        exchange.rateLimitReset = Long.valueOf(responseHeaders.get("X-RateLimit-Reset").get(0));
-        rateLimitsUpdated = true;
+        try {
+          Map<String, List<String>> responseHeaders = responseAware.getResponseHeaders();
+          exchange.rateLimit = Integer.valueOf(responseHeaders.get("X-RateLimit-Limit").get(0));
+          exchange.rateLimitRemaining =
+              Integer.valueOf(responseHeaders.get("X-RateLimit-Remaining").get(0));
+          exchange.rateLimitReset = Long.valueOf(responseHeaders.get("X-RateLimit-Reset").get(0));
+          rateLimitsUpdated = true;
+        } catch (Exception e) {
+          LOG.error("Error get rate limit from headers: {}", responseAware.getResponseHeaders(), e);
+        }
       }
       if (rateLimitsUpdated) {
         RateLimitUpdateListener rateLimitUpdateListener = exchange.getRateLimitUpdateListener();
         if (rateLimitUpdateListener != null) {
-          rateLimitUpdateListener.rateLimitUpdate(exchange.rateLimit, exchange.rateLimitRemaining, exchange.rateLimitReset);
+          rateLimitUpdateListener.rateLimitUpdate(
+              exchange.rateLimit, exchange.rateLimitRemaining, exchange.rateLimitReset);
         }
       }
     }
