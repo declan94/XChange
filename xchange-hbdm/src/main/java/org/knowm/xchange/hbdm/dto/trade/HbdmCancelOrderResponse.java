@@ -58,9 +58,12 @@ public class HbdmCancelOrderResponse {
 
   @Override
   public String toString() {
-    return "HbdmCancelOrderResponse{" +
-            "errors=" + errors +
-            ", successes='" + successes + '\'' +
-            '}';
+    return "HbdmCancelOrderResponse{"
+        + "errors="
+        + errors
+        + ", successes='"
+        + successes
+        + '\''
+        + '}';
   }
 }

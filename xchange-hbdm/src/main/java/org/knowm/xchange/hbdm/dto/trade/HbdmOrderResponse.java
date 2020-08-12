@@ -25,9 +25,13 @@ public class HbdmOrderResponse {
 
   @Override
   public String toString() {
-    return "HbdmOrderResponse{" +
-            "orderId='" + orderId + '\'' +
-            ", clientOrderId='" + clientOrderId + '\'' +
-            '}';
+    return "HbdmOrderResponse{"
+        + "orderId='"
+        + orderId
+        + '\''
+        + ", clientOrderId='"
+        + clientOrderId
+        + '\''
+        + '}';
   }
 }
