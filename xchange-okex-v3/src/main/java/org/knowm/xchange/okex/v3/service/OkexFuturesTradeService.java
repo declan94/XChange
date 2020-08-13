@@ -74,7 +74,7 @@ public class OkexFuturesTradeService extends OkexFuturesTradeServiceRaw implemen
   }
 
   @Override
-  public boolean cancelOrder(String orderId) {
+  public boolean cancelOrder(String orderId) throws IOException {
     if (instrumentId == null) {
       instrumentId = exchange.determineFuturesInstrumentId(currencyPair, futuresPrompt);
     }

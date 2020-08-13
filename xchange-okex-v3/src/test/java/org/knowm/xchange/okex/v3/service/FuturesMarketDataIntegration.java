@@ -2,6 +2,7 @@ package org.knowm.xchange.okex.v3.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.IOException;
 import org.junit.Test;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
@@ -13,7 +14,7 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
 public class FuturesMarketDataIntegration {
 
   @Test
-  public void testInstruments() {
+  public void testInstruments() throws IOException {
     ExchangeSpecification exSpec = new ExchangeSpecification(OkexExchange.class);
     exSpec.setExchangeSpecificParametersItem("Use_Futures", true);
 
